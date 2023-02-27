@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+bob:
+  email: bob@example.com
+  nickname: bobtheglob
+  token: anw9u41klikr08132u8dj
+
+chuck:
+  email: chuck@gmail.com
+  nickname: mschuck
+  token: kladf812j09u4019989
