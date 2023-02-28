@@ -14,9 +14,7 @@ module AuthConcern
   end
 
   def update_user_data(user, data)
-    user.name = data[:name]
     user.nickname = data[:nickname]
-    user.image_url = data[:image_url]
     user.token = data[:token]
   end
 end

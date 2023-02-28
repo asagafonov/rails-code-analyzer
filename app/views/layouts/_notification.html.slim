@@ -1,0 +1,3 @@
+- flash.each do |type, message|
+  .container.alert(class="#{type == 'alert' ? 'alert-danger' : 'alert-info'}")
+    span = message

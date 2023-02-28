@@ -1,0 +1,17 @@
+.container.mb-2
+  .d-flex.flex-wrap.align-items-center.py-2.border-bottom
+    .navbar.navbar-expand-md.navbar-light.me-auto
+      .collapse.navbar-collapse
+        ul.nav.nav-pills
+          li.nav-item.me-2 = link_to t('views.main_page'), root_path, class: 'nav-link text-dark'
+          - if current_user
+            li.nav-item.me-2 = link_to t('views.repositories.all'), repositories_path, class: 'nav-link text-dark'
+    - if current_user
+      ul.nav.nav-pills
+        li.nav-item.me-2
+          span.nav-link.text-secondary = current_user&.email
+        li.nav-item.me-2
+          = link_to t('views.auth.log_out'), auth_logout_path, class: 'nav-link text-dark'
+    - else
+      = button_to t('views.auth.log_in'), auth_request_url('github'), data: { turbo: false }, method: :post, class: 'nav-link text-dark'
+

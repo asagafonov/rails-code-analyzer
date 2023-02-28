@@ -14,7 +14,10 @@ class Web::AuthControllerTest < ActionDispatch::IntegrationTest
       uid: '12345',
       info: {
         email: Faker::Internet.email,
-        name: Faker::Name.first_name
+        nickname: Faker::Name.first_name
+      },
+      credentials: {
+        token: Faker::Number.number(digits: 24)
       }
     }
 
@@ -30,7 +33,7 @@ class Web::AuthControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should log out' do
-    sign_in users(:bob)
+    sign_in users :bob
 
     assert signed_in?
     get auth_logout_url

@@ -34,10 +34,8 @@ module Web
       data = request.env['omniauth.auth']
       {
         email: data[:info][:email],
-        name: data[:info][:name],
         nickname: data[:info][:nickname],
-        image_url: data[:info][:image],
-        token: data[:info][:token]
+        token: data[:credentials][:token]
       }
     end
   end

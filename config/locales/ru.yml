@@ -9,6 +9,8 @@ ru:
         name: Название
         language: Язык
         check_status: Статус проверки
+      form:
+        submit_new: Добавить репозиторий
     auth:
       log_in: Войти через GitHub
       log_out: Выйти
@@ -20,3 +22,12 @@ ru:
           success: Вы вышли из системы
         save_user:
           failure: При определении пользователя произошла ошибка
+
+  controllers:
+    repositories:
+      create:
+        success: Репозиторий создан
+
+  jobs:
+    fetch:
+      failed: При загрузке данных произошла ошибка

@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.2'
 
+gem 'aasm'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'enumerize'
@@ -46,6 +47,7 @@ group :test do
   gem 'minitest-power_assert'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'webmock'
 end
 
 group :production do

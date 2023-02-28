@@ -1,0 +1,9 @@
+ru:
+  activerecord:
+    attributes:
+      repository:
+        github: Выберите репозиторий из списка
+        state/default: Проверка не начиналась
+        state/fetching: В процессе
+        state/fetched: Проверка завершена успешно
+        state/failed: Проверка завершилась с ошибкой

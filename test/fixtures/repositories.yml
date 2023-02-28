@@ -1,11 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+react:
+  github: example/React
+  name: React JS
+  language: javascript
+  state: default
+  user: chuck
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+redux:
+  github: example/Redux
+  name: Redux
+  language: javascript
+  state: fetched
+  user: bob
