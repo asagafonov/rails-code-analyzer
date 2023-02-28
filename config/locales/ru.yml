@@ -1,0 +1,22 @@
+ru:
+  views:
+    main_page: Главная
+    repositories:
+      all: Репозитории
+      new: Добавить репозиторий
+      add: Новый репозиторий
+      table:
+        name: Название
+        language: Язык
+        check_status: Статус проверки
+    auth:
+      log_in: Войти через GitHub
+      log_out: Выйти
+      actions:
+        login:
+          success: Вы вошли в систему
+          failure: При авторизации произошла ошибка
+        logout:
+          success: Вы вышли из системы
+        save_user:
+          failure: При определении пользователя произошла ошибка
