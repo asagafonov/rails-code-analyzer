@@ -11,9 +11,11 @@ gem 'enumerize'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'octokit'
+gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'puma', '~> 5.0'
+gem 'pundit'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 gem 'rails-i18n'
 gem 'simple_form'
@@ -25,7 +27,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv'
+  gem 'dotenv-rails'
   gem 'faker'
 end
 
