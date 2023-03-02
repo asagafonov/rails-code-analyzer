@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :web do
-    get 'repository_checks/create'
-    get 'repository_checks/update'
-  end
   scope module: :web do
-    resources :repositories do
-      resources :repository_checks
+    resources :repositories, only: %i[index show new create update] do
+      scope module: :repositories do
+        resources :checks, only: %i[show create]
+      end
     end
 
     post 'auth/:provider', to: 'auth#request', as: :auth_request
