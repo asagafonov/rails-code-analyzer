@@ -3,7 +3,20 @@ ru:
     attributes:
       repository:
         github: Выберите репозиторий из списка
+        name: Название
+        language: Язык
+        created_at: Дата создания
+        updated_at: Дата обновления
         state/default: Проверка не начиналась
         state/fetching: В процессе
         state/fetched: Проверка завершена успешно
         state/failed: Проверка завершилась с ошибкой
+
+      repository_check:
+        state/idle: Проверка не проводилась
+        state/in_progress: В процессе
+        state/passed: Завершена
+        state/failed: Завершена
+        passed: Пройдена успешно
+        failed: Завершилась с ошибками
+        unknown: Неизвестно

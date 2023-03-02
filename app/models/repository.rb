@@ -7,6 +7,7 @@ class Repository < ApplicationRecord
   extend Enumerize
 
   belongs_to :user
+  has_many :repository_checks
 
   aasm column: :state, whiny_transition: false do
     state :default, initial: true

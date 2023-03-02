@@ -13,21 +13,15 @@ module Web
       @repository = Repository.find(params[:id])
       authorize @repository
 
-      return if @repository.fetched?
+      fetch_repository_data(@repository.id)
 
-      UpdateRepositoryJob.perform_now(@repository.id)
+      @repository_checks = @repository.repository_checks.by_creation_date_desc
     end
 
     def new
       authorize Repository
       @repository = Repository.new
-
-      client = Octokit::Client.new(
-        access_token: current_user.token,
-        auto_paginate: true
-      )
-
-      @repositories_list = client.repos.filter { |r| Repository.language.values.collect(&:text).include?(r[:language]) }
+      @repositories_list = fetch_repositories
     end
 
     def create
@@ -35,7 +29,7 @@ module Web
       authorize @repository
 
       if @repository.save
-        UpdateRepositoryJob.perform_now(@repository.id)
+        fetch_repository_data(@repository.id)
         redirect_to @repository, notice: t('controllers.repositories.create.success')
       else
         render :new, status: :unprocessable_entity
@@ -44,8 +38,22 @@ module Web
 
     private
 
+    def fetch_repositories
+      client = Octokit::Client.new(
+        access_token: current_user.token,
+        auto_paginate: true
+      )
+
+      client.repos.filter { |r| Repository.language.values.collect(&:text).include?(r[:language]) }
+    end
+
     def permitted_params
       params.require(:repository).permit(:github)
+    end
+
+    def fetch_repository_data(repository_id)
+      fetch_repository_data = ApplicationContainer[:fetch_repository_data]
+      fetch_repository_data.run(repository_id)
     end
   end
 end

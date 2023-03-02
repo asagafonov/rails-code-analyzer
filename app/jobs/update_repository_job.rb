@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'octokit'
-
 class UpdateRepositoryJob < ApplicationJob
   queue_as :default
 

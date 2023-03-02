@@ -11,6 +11,13 @@ ru:
         check_status: Статус проверки
       form:
         submit_new: Добавить репозиторий
+    repository_checks:
+      add: Добавить проверку
+      table:
+        status: Статус
+        commit_id: ID коммита
+        result: Результат проверки
+        created_at: Дата создания
     auth:
       log_in: Войти через GitHub
       log_out: Выйти
@@ -27,6 +34,10 @@ ru:
     repositories:
       create:
         success: Репозиторий создан
+    repository_checks:
+      create:
+        success: Проверка добавлена
+        failure: При создании проверки произошла ошибка
 
   jobs:
     fetch:

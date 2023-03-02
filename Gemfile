@@ -8,6 +8,7 @@ ruby '3.1.2'
 gem 'aasm'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'dry-container'
 gem 'enumerize'
 gem 'jbuilder'
 gem 'jsbundling-rails'

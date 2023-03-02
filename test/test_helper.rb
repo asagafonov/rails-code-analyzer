@@ -28,6 +28,10 @@ class ActionDispatch::IntegrationTest
     get callback_auth_url('github')
   end
 
+  def sign_out
+    get auth_logout_url
+  end
+
   def signed_in?
     session[:user_id].present? && current_user.present?
   end
