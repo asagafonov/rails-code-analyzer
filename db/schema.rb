@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_095725) do
     t.string "name"
     t.string "language"
     t.string "state"
-    t.string "git_url"
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 

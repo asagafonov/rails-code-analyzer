@@ -2,7 +2,7 @@
 
 class CheckRepositoryOperation
   def self.run(check_id, git_url)
-    CheckRepositoryCodeJob.perform_now(check_id, git_url)
+    CheckRepositoryCodeJob.perform_later(check_id, git_url)
   end
 end
 

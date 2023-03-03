@@ -188,6 +188,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    open3 (0.1.1)
     parallel (1.22.1)
     parser (3.2.1.0)
       ast (~> 2.4.1)
@@ -347,6 +348,7 @@ DEPENDENCIES
   omniauth
   omniauth-github
   omniauth-rails_csrf_protection
+  open3
   pg
   puma (~> 5.0)
   pundit

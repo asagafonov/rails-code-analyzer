@@ -12,7 +12,7 @@ module Web
         @repository_check = Repository::Check.new(repository_id: @repository.id)
 
         if @repository_check.save
-          check_repository(@repository_check.id, @repository.git_url)
+          check_repository(@repository_check.id, full_link(@repository.github))
           redirect_to @repository, notice: t('controllers.repository_checks.create.success')
         else
           redirect_to @repository, alert: t('controllers.repository_checks.create.failure')
@@ -24,6 +24,10 @@ module Web
       def check_repository(check_id, git_url)
         check_repository = ApplicationContainer[:check_repository]
         check_repository.run(check_id, git_url)
+      end
+
+      def full_link(link)
+        "https://github.com/#{link}.git"
       end
     end
   end

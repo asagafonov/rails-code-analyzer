@@ -2,7 +2,7 @@
 
 class FetchRepositoryDataOperation
   def self.run(repository_id)
-    UpdateRepositoryJob.perform_now(repository_id)
+    UpdateRepositoryJob.perform_later(repository_id)
   end
 end
 

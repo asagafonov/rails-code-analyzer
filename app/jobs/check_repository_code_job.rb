@@ -10,12 +10,11 @@ class CheckRepositoryCodeJob < ApplicationJob
   private
 
   def clone_repository(check_id, url)
-    command = "git clone #{url} tmp/repository_checks/#{check_id}"
-    stdout, exit_status = Open3.popen3(command) do |_stdin, stdout, _stderr, wait_thr|
-      [stdout.read, wait_thr.value]
-    end
+    directory = Rails.root.join("./tmp/repository_checks/check_#{check_id}")
+    command = "git clone #{url} #{directory}"
 
-    exit_status.exitstatus
-    puts stdout
+    Open3.popen3(command)
+  rescue StandardError
+    puts 'Error cloning repository'
   end
 end

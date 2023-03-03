@@ -26,8 +26,7 @@ class UpdateRepositoryJob < ApplicationJob
 
     repository.update!(
       name: data[:name],
-      language: data[:language].downcase.to_sym,
-      git_url: data[:git_url]
+      language: data[:language].downcase.to_sym
     )
   end
 
