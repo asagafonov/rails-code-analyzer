@@ -3,12 +3,16 @@
 module Web
   module Repositories
     class ChecksController < ApplicationController
+      def show
+        @repository_check = Repository::Check.find(params[:id])
+      end
+
       def create
-        @repository = Repository.find(params[:id])
-        @repository_check = Repository.repository_checks.build
+        @repository = Repository.find(params[:repository_id])
+        @repository_check = Repository::Check.new(repository_id: @repository.id)
 
         if @repository_check.save
-          check_repository
+          check_repository(@repository_check.id, @repository.git_url)
           redirect_to @repository, notice: t('controllers.repository_checks.create.success')
         else
           redirect_to @repository, alert: t('controllers.repository_checks.create.failure')
@@ -17,9 +21,9 @@ module Web
 
       private
 
-      def check_repository
+      def check_repository(check_id, git_url)
         check_repository = ApplicationContainer[:check_repository]
-        check_repository.run
+        check_repository.run(check_id, git_url)
       end
     end
   end

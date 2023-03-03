@@ -12,8 +12,8 @@ ru:
         state/fetched: Проверка завершена успешно
         state/failed: Проверка завершилась с ошибкой
 
-      repository_check:
-        state/idle: Проверка не проводилась
+      repository/check:
+        state/idle: Ожидает проверки
         state/in_progress: В процессе
         state/passed: Завершена
         state/failed: Завершена

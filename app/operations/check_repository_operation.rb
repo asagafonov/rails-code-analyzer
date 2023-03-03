@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CheckRepositoryOperation
-  def self.run
-    pp 'I run eslint!'
+  def self.run(check_id, git_url)
+    CheckRepositoryCodeJob.perform_now(check_id, git_url)
   end
 end
 

@@ -15,7 +15,7 @@ module Web
 
       fetch_repository_data(@repository.id)
 
-      @repository_checks = @repository.repository_checks.by_creation_date_desc
+      @repository_checks = Repository::Check.where(repository_id: @repository.id).by_creation_date_desc
     end
 
     def new
