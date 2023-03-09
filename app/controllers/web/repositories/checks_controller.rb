@@ -4,7 +4,8 @@ module Web
   module Repositories
     class ChecksController < ApplicationController
       def show
-        @repository_check = Repository::Check.find(params[:id])
+        @repository_check = Repository::Check.find(params[:id], include: :linter_error)
+        @linter_errors = @repository_check.linter_errors
       end
 
       def create

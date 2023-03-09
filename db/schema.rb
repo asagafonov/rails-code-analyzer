@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_03_095725) do
-  create_table "checks", force: :cascade do |t|
-    t.string "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_133319) do
   create_table "repositories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,6 +20,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_095725) do
     t.string "language"
     t.string "state"
     t.index ["user_id"], name: "index_repositories_on_user_id"
+  end
+
+  create_table "repository_check_linter_errors", force: :cascade do |t|
+    t.string "file_path"
+    t.string "message"
+    t.string "rule"
+    t.string "line_column"
+    t.integer "check_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_repository_check_linter_errors_on_check_id"
   end
 
   create_table "repository_checks", force: :cascade do |t|
@@ -46,5 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_095725) do
   end
 
   add_foreign_key "repositories", "users"
+  add_foreign_key "repository_check_linter_errors", "checks"
   add_foreign_key "repository_checks", "repositories"
 end

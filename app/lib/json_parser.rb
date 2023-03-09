@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ErrorParser
+class JsonParser
   class << self
     def parse_javascript(data)
       return [] if data.empty?

@@ -12,12 +12,12 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     git_clone(url)
     result = Linter.public_send("lint_#{repository.language}", directory)
-    parsed_result = ErrorParser.public_send("parse_#{repository.language}", result)
+    parsed_result = JsonParser.public_send("parse_#{repository.language}", result)
 
     if parsed_result.empty?
       @repository_check.mark_as_passed!
     else
-      ErrorTracker.write(@repository_check, parsed_result)
+      CheckErrorBuilder.write(check_id, parsed_result)
       @repository_check.mark_as_failed!
     end
   rescue StandardError
