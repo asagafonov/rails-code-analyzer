@@ -9,10 +9,14 @@
     "bootstrap-icons": "^1.10.3",
     "esbuild": "^0.17.10",
     "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "sass": "^1.58.3"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.27.5"
   }
 }

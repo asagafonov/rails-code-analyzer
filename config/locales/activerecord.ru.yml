@@ -17,6 +17,7 @@ ru:
         state/in_progress: В процессе
         state/passed: Завершена
         state/failed: Завершена
+        state/raised_error: Отменена из-за ошибки
         passed: Пройдена успешно
         failed: Завершилась с ошибками
         unknown: Неизвестно
