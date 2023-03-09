@@ -28,6 +28,6 @@ class Repository < ApplicationRecord
     end
   end
 
-  enumerize :language, in: [:javascript], scope: true
+  enumerize :language, in: %i[javascript ruby], scope: true
   validates :github, presence: true
 end

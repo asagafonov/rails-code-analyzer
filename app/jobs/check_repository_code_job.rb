@@ -11,11 +11,15 @@ class CheckRepositoryCodeJob < ApplicationJob
     @repository_check.start_checking!
 
     git_clone(url)
-    result = check(repository)
+    result = Linter.public_send("lint_#{repository.language}", directory)
+    parsed_result = ErrorParser.public_send("parse_#{repository.language}", result)
 
-    puts '@result'
-    puts JSON.parse(result)
-    @repository_check.mark_as_failed!
+    if parsed_result.empty?
+      @repository_check.mark_as_passed!
+    else
+      ErrorTracker.write(@repository_check, parsed_result)
+      @repository_check.mark_as_failed!
+    end
   rescue StandardError
     @repository_check.raise_error!
   end
@@ -28,40 +32,13 @@ class CheckRepositoryCodeJob < ApplicationJob
 
   def git_clone(url)
     clear_dir_command = "rm -rf #{directory}"
-    run_command(clear_dir_command)
+    Terminal.run_command(clear_dir_command)
 
     clone_command = "git clone #{url} #{directory}"
-    run_command(clone_command)
-  end
-
-  def check(repository)
-    check_command = Linter.lint(repository.language, directory)
-    run_command(check_command)
-  end
-
-  def run_command(command)
-    output, status = Open3.popen3(command) do |_stdin, stdout, _stderr, wait_thr|
-      [stdout.read, wait_thr.value.exitstatus]
-    end
-
-    return output unless status.to_i.zero?
-
-    ''
+    Terminal.run_command(clone_command)
   end
 
   def git_url(url)
     "https://github.com/#{url}.git"
-  end
-
-  class Linter
-    def self.lint(lang, path)
-      case lang
-      when 'javascript'
-        config_path = Rails.root.join('.eslintrc.yml')
-        "./node_modules/eslint/bin/eslint.js --format json -c #{config_path} --no-eslintrc #{path}"
-      else
-        raise "#{lang} language is not supported"
-      end
-    end
   end
 end
