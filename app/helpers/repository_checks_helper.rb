@@ -4,7 +4,7 @@ module RepositoryChecksHelper
   def self.check_result(state)
     case state
     when 'passed'
-      ::I18n.t('activerecord.attributues.repository/check.passed')
+      ::I18n.t('activerecord.attributes.repository/check.passed')
     when 'failed'
       ::I18n.t('activerecord.attributes.repository/check.failed')
     else
@@ -16,8 +16,10 @@ module RepositoryChecksHelper
     return {} if errors.empty?
 
     errors.each_with_object({}) do |err, acc|
-      path = err[:file_path]
-      acc[path] = err.except[:file_path]
+      path = err&.file_path
+
+      acc[path] ||= []
+      acc[path] << { rule: err&.rule, message: err&.message, location: err&.location }
     end
   end
 end
