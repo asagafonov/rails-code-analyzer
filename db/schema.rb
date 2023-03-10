@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_193620) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_135015) do
   create_table "repositories", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
     t.string "github"
     t.string "name"
     t.string "language"
     t.string "state"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
@@ -35,10 +35,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_193620) do
 
   create_table "repository_checks", force: :cascade do |t|
     t.string "commit_id"
+    t.string "state"
+    t.integer "repository_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "repository_id", null: false
-    t.string "state"
     t.integer "linter_errors_count"
     t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
   end
@@ -52,6 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_193620) do
   end
 
   add_foreign_key "repositories", "users"
-  add_foreign_key "repository_check_linter_errors", "checks"
+  add_foreign_key "repository_check_linter_errors", "repository_checks", column: "check_id", on_delete: :cascade
   add_foreign_key "repository_checks", "repositories"
 end
