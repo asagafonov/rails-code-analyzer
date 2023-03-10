@@ -5,6 +5,7 @@ require 'aasm'
 class Repository::Check < ApplicationRecord
   include AASM
   belongs_to :repository
+  has_many :linter_errors, dependent: :destroy
 
   aasm column: :state, whiny_transition: false do
     state :idle, initial: true
