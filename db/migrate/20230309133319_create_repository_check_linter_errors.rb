@@ -4,7 +4,7 @@ class CreateRepositoryCheckLinterErrors < ActiveRecord::Migration[7.0]
       t.string :file_path
       t.string :message
       t.string :rule
-      t.string :line_column
+      t.string :location
       t.references :check, null: false, foreign_key: true
 
       t.timestamps
