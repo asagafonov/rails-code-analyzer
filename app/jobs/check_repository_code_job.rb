@@ -12,7 +12,7 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     git_clone(url)
     result = Linter.public_send("lint_#{repository.language}", directory)
-    parsed_result = JsonParser.public_send("parse_#{repository.language}", result)
+    parsed_result = JsonParser.public_send("parse_#{repository.language}", result).reject(&:empty?)
 
     if parsed_result.empty?
       @repository_check.mark_as_passed!
@@ -45,10 +45,10 @@ class CheckRepositoryCodeJob < ApplicationJob
   def write_linter_errors(check, errors)
     errors.each do |error|
       new_error = check.linter_errors.build(
-        file_path: error[:file_path],
-        message: error[:message],
-        rule: error[:rule],
-        location: error[:location]
+        file_path: error[0][:file_path],
+        message: error[0][:message],
+        rule: error[0][:rule],
+        location: error[0][:location],
       )
 
       new_error.save!
