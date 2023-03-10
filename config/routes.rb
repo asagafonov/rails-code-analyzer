@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   scope module: :web do
-    resources :repositories, only: %i[index show new create update] do
+    resources :repositories, only: %i[index show new create] do
       scope module: :repositories do
         resources :checks, only: %i[show create]
       end
