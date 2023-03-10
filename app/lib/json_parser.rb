@@ -25,7 +25,7 @@ class JsonParser
         file_path:,
         message: message['message'],
         rule: message['ruleId'],
-        location: "#{message['line']} : #{message['column']}"
+        location: "#{message['line']}:#{message['column']}"
       }
     end
   end
@@ -36,7 +36,7 @@ class JsonParser
         file_path:,
         message: message['message'],
         rule: message['cop_name'],
-        location: "#{message['location']['line']} : #{message['location']['column']}"
+        location: "#{message['location']['line']}:#{message['location']['column']}"
       }
     end
   end
