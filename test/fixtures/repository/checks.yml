@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  commit_id: MyString
+  commit_id: ff81abb
+  repository: react
 
 two:
-  commit_id: MyString
+  commit_id: js3a3m
+  repository: redux

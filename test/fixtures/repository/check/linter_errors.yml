@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  file_path: MyString
-  message: MyString
-  rule: MyString
-  line_column: MyString
+  file_path: path
+  message: not allowed
+  rule: error#1
+  location: '12:81'
   check: one
 
 two:
-  file_path: MyString
-  message: MyString
-  rule: MyString
-  line_column: MyString
+  file_path: path
+  message: style fix
+  rule: error#2
+  location: '8:14'
   check: two
