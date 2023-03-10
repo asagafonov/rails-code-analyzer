@@ -21,7 +21,7 @@ module Web
     def new
       authorize Repository
       @repository = Repository.new
-      @repositories_list = fetch_repositories
+      @repositories_list = OctokitClient.new(current_user).fetch_repositories
     end
 
     def create
@@ -37,15 +37,6 @@ module Web
     end
 
     private
-
-    def fetch_repositories
-      client = Octokit::Client.new(
-        access_token: current_user.token,
-        auto_paginate: true
-      )
-
-      client.repos.filter { |r| Repository.language.values.collect(&:text).include?(r[:language]) }
-    end
 
     def permitted_params
       params.require(:repository).permit(:github)

@@ -17,18 +17,19 @@ table.table
       td = t('views.repository_checks.table.commit_id')
       td = @repository_check&.commit_id
 
-table.table.table-hover.mb-5
-  thead
-    tr
-      th = t('views.linter_errors.table.message')
-      th = t('views.linter_errors.table.rule')
-      th = t('views.linter_errors.table.line')
-  tbody
-    - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
+- if @repository_check.linter_errors_count&.positive?
+  table.table.table-hover.mb-5
+    thead
       tr
-        td(colspan="3") = link_to path.split('/').last, path
-      - details.each do |d|
+        th = t('views.linter_errors.table.message')
+        th = t('views.linter_errors.table.rule')
+        th = t('views.linter_errors.table.line')
+    tbody
+      - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
         tr
-          td = d[:message]
-          td = d[:rule]
-          td = d[:location]
+          td(colspan="3") = link_to path.split('/').last, path
+        - details.each do |d|
+          tr
+            td = d[:message]
+            td = d[:rule]
+            td = d[:location]

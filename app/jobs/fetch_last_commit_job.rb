@@ -4,19 +4,10 @@ class FetchLastCommitJob < ApplicationJob
   queue_as :default
 
   def perform(check_id)
-    repository_check = Repository::Check.find(check_id)
+    check = Repository::Check.find(check_id)
 
-    repository_name = repository_check.repository.github
-    token = repository_check.repository.user.token
+    commit_id = OctokitClient.new(check.repository.user).fetch_commit_id(check)
 
-    client = Octokit::Client.new(
-      access_token: token,
-      auto_paginate: true
-    )
-
-    result = client.commits(repository_name).first
-    last_commit = result[:sha][..6]
-
-    repository_check.update!(commit_id: last_commit)
+    check.update!(commit_id:)
   end
 end
