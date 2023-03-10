@@ -17,7 +17,7 @@ class CheckRepositoryCodeJob < ApplicationJob
     if parsed_result.empty?
       @repository_check.mark_as_passed!
     else
-      CheckErrorBuilder.write(check_id, parsed_result)
+      write_linter_errors(@repository_check, parsed_result)
       @repository_check.mark_as_failed!
     end
   rescue StandardError
@@ -40,5 +40,18 @@ class CheckRepositoryCodeJob < ApplicationJob
 
   def git_url(url)
     "https://github.com/#{url}.git"
+  end
+
+  def write_linter_errors(check, errors)
+    errors.each do |error|
+      new_error = check.linter_errors.build(
+        file_path: error[:file_path],
+        message: error[:message],
+        rule: error[:rule],
+        location: error[:location]
+      )
+
+      new_error.save!
+    end
   end
 end
