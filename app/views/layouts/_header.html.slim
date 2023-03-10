@@ -13,5 +13,5 @@
         li.nav-item.me-2
           = link_to t('views.auth.log_out'), auth_logout_path, class: 'nav-link text-dark'
     - else
-      = button_to t('views.auth.log_in'), auth_request_url('github'), data: { turbo: false }, method: :post, class: 'nav-link text-dark'
+      = button_to t('views.auth.log_in'), auth_request_url('github'), data: { turbo: false }, method: :post, class: 'btn btn-primary nav-link text-white px-2'
 

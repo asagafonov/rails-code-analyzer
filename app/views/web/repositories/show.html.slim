@@ -1,7 +1,9 @@
 .mb-4
   h2 = @repository.github
 
-= button_to t('views.repository_checks.add'), repository_checks_path(@repository), data: { turbo_method: :post }, class: 'btn btn-primary mb-4'
+= button_to t('views.repository_checks.add'), repository_checks_path(@repository),
+                                              data: { turbo_method: :post, disabled: !@repository&.language },
+                                              class: 'btn btn-primary mb-4'
 
 p
   strong.me-2 = "#{t('activerecord.attributes.repository.name')}:"
@@ -32,7 +34,7 @@ table.table.table-striped
   tbody
     - @repository_checks.each do |check|
       tr
-        td = link_to check.id, repository_check_path(check), class: 'text-primary text-decoration-none'
+        td = link_to check.id, repository_check_path(@repository, check), class: 'text-primary text-decoration-none'
         td = check.aasm.human_state
         td = check.commit_id
         td = RepositoryChecksHelper.check_result(check.state)

@@ -5,6 +5,7 @@ table.table.table-striped.table-hover.mt-4
     tr
       th = t('views.repositories.table.name')
       th = t('views.repositories.table.language')
+      th = t('views.repositories.table.fetch_status')
       th = t('views.repositories.table.check_status')
   tbody
     - @repositories.each do |repo|
@@ -12,3 +13,4 @@ table.table.table-striped.table-hover.mt-4
         td = link_to repo&.name || '—', repository_path(repo), class: 'text-primary text-decoration-none'
         td = repo&.language_text || '—'
         td = repo.aasm.human_state
+        td = RepositoryChecksHelper.check_result(repo&.checks&.last&.state)
