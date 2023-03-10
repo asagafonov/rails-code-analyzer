@@ -13,11 +13,19 @@ ru:
         submit_new: Добавить репозиторий
     repository_checks:
       add: Добавить проверку
+      back: К репозиторию
+      repository_check: Проверка
       table:
         status: Статус
         commit_id: ID коммита
         result: Результат проверки
         created_at: Дата создания
+        amount: Количество замечаний
+    linter_errors:
+      table:
+        message: Сообщение
+        rule: Идентификатор правила
+        line: Строка и символ
     auth:
       log_in: Войти через GitHub
       log_out: Выйти
