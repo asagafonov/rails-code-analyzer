@@ -5,9 +5,3 @@ class CheckRepositoryOperation
     CheckRepositoryCodeJob.perform_later(check_id)
   end
 end
-
-class CheckRepositoryOperationStub
-  def self.run
-    pp 'I pretend to run eslint, haha!'
-  end
-end
