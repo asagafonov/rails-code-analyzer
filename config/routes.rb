@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api do
+    post 'checks', to: 'checks#run_hook'
+  end
+
   scope module: :web do
     resources :repositories, only: %i[index show new create] do
       scope module: :repositories do
