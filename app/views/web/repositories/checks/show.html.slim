@@ -1,1 +1,34 @@
-p showing check details
+= link_to t('views.repository_checks.back'), repository_path(@repository_check.repository), class: 'btn btn-primary my-4'
+
+h2 = "#{t('views.repository_checks.repository_check')} ##{@repository_check.id}"
+
+table.table
+  tbody
+    tr
+      td = t('views.repository_checks.table.created_at')
+      td = @repository_check.created_at.strftime('%d.%m.%Y, %H:%M')
+    tr
+      td = t('views.repository_checks.table.status')
+      td = @repository_check.aasm.human_state
+    tr
+      td = t('views.repository_checks.table.amount')
+      td = @repository_check&.linter_errors&.size
+    tr
+      td = t('views.repository_checks.table.commit_id')
+      td = @repository_check&.commit_id
+
+table.table.table-hover.mb-5
+  thead
+    tr
+      th = t('views.linter_errors.table.message')
+      th = t('views.linter_errors.table.rule')
+      th = t('views.linter_errors.table.line')
+  tbody
+    - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
+      tr
+        td.colspan-3 = link_to path.split('/').last, path
+      - details.each do |d|
+        tr
+          td = d[:message]
+          td = d[:rule]
+          td = d[:location]
