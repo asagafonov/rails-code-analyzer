@@ -13,6 +13,7 @@ module Web
         @repository_check = Repository::Check.new(repository_id: @repository.id)
 
         if @repository_check.save
+          fetch_last_commit(@repository_check.id)
           check_repository(@repository_check.id)
           redirect_to @repository, notice: t('controllers.repository_checks.create.success')
         else
@@ -21,6 +22,11 @@ module Web
       end
 
       private
+
+      def fetch_last_commit(check_id)
+        fetch_commit = ApplicationContainer[:fetch_last_commit]
+        fetch_commit.run(check_id)
+      end
 
       def check_repository(check_id)
         check_repository = ApplicationContainer[:check_repository]
