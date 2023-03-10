@@ -11,4 +11,13 @@ module RepositoryChecksHelper
       ::I18n.t('activerecord.attributes.repository/check.unknown')
     end
   end
+
+  def self.group_errors_by_path(errors)
+    return {} if errors.empty?
+
+    errors.each_with_object({}) do |err, acc|
+      path = err[:file_path]
+      acc[path] = err.except[:file_path]
+    end
+  end
 end
