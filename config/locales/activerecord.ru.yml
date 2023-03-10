@@ -7,10 +7,10 @@ ru:
         language: Язык
         created_at: Дата создания
         updated_at: Дата обновления
-        state/default: Проверка не начиналась
-        state/fetching: В процессе
-        state/fetched: Проверка завершена успешно
-        state/failed: Проверка завершилась с ошибкой
+        state/default: Нет, данные не заргужены
+        state/fetching: Нет, данные заргужаются
+        state/fetched: Да, данные загружены
+        state/failed: Нет, загрузка прервана
 
       repository/check:
         state/idle: Ожидает проверки

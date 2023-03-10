@@ -1,14 +1,18 @@
 ru:
   views:
     main_page: Главная
+    welcome_screen: Сервис для проверки репозиториев
     repositories:
       all: Репозитории
+      go_to: К списку репозиториев
       new: Добавить репозиторий
       add: Новый репозиторий
+      loading: Данные репозитория загружаются
       table:
         name: Название
         language: Язык
-        check_status: Статус проверки
+        check_status: Статус последней проверки
+        fetch_status: Можно проверять?
       form:
         submit_new: Добавить репозиторий
     repository_checks:
