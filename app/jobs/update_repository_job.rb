@@ -8,7 +8,10 @@ class UpdateRepositoryJob < ApplicationJob
 
     repository.start_fetching!
 
-    data = github_api(repository.user).fetch_repository_data(repository)
+    api = github_api(repository.user)
+
+    data = api.fetch_repository_data(repository)
+    api.create_hook(repository[:github])
 
     repository.update!(
       name: data[:name],

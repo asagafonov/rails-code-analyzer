@@ -32,6 +32,21 @@ class OctokitClient
     @client.repository(github_repo)
   end
 
+  def create_hook(id)
+    hook_url = Rails.application.routes.url_helpers.api_checks_url
+
+    @client.hooks(id).each do |hook|
+      @client.remove_hook(id, hook[:id]) if hook[:config][:url] == hook_url
+    end
+
+    @client.create_hook(
+      id,
+      'web',
+      { url: hook_url, content_type: 'json' },
+      { events: ['push'], active: true }
+    )
+  end
+
   private
 
   def full_link(url)
