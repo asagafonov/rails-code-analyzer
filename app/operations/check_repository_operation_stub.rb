@@ -16,7 +16,7 @@ class CheckRepositoryOperationStub
         location: "#{[10, 15, 20].sample}:#{[3, 4, 12].sample}",
       )
 
-      linter_error.save!
+      linter_error.save
     end
 
     repository_check.mark_as_failed!
