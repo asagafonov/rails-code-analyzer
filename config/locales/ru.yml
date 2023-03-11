@@ -18,7 +18,7 @@ ru:
     repository_checks:
       add: Добавить проверку
       back: К репозиторию
-      repository_check: Проверка
+      result: Результат проверки
       table:
         status: Статус
         commit_id: ID коммита
