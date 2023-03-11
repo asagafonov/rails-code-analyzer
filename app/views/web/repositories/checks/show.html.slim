@@ -1,6 +1,6 @@
 = link_to t('views.repository_checks.back'), repository_path(@repository_check.repository), class: 'btn btn-primary my-4'
 
-h2 = "#{t('views.repository_checks.repository_check')} ##{@repository_check.id}"
+h2.mb-4 = t('views.repository_checks.result')
 
 table.table
   tbody
