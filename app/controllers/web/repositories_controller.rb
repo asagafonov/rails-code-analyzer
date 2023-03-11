@@ -13,15 +13,15 @@ module Web
       @repository = Repository.find(params[:id])
       authorize @repository
 
-      fetch_repository_data(@repository.id)
+      @repository_checks = @repository.checks.by_creation_date_desc
 
-      @repository_checks = Repository::Check.where(repository_id: @repository.id).by_creation_date_desc
+      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def new
       authorize Repository
       @repository = Repository.new
-      @repositories_list = OctokitClient.new(current_user).fetch_repositories
+      @repositories_list = github_api(current_user).fetch_repositories
     end
 
     def create
@@ -29,7 +29,7 @@ module Web
       authorize @repository
 
       if @repository.save
-        fetch_repository_data(@repository.id)
+        UpdateRepositoryJob.perform_later(@repository.id)
         redirect_to @repository, notice: t('controllers.repositories.create.success')
       else
         render :new, status: :unprocessable_entity
@@ -42,9 +42,8 @@ module Web
       params.require(:repository).permit(:github)
     end
 
-    def fetch_repository_data(repository_id)
-      fetch_repository_data = ApplicationContainer[:fetch_repository_data]
-      fetch_repository_data.run(repository_id)
+    def github_api(user)
+      ApplicationContainer[:octokit].new(user)
     end
   end
 end

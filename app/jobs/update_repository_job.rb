@@ -8,7 +8,7 @@ class UpdateRepositoryJob < ApplicationJob
 
     repository.start_fetching!
 
-    data = OctokitClient.new(repository.user).fetch_repository_data(repository)
+    data = github_api(repository.user).fetch_repository_data(repository)
 
     repository.update!(
       name: data[:name],
@@ -18,5 +18,11 @@ class UpdateRepositoryJob < ApplicationJob
     repository.succeed!
   rescue StandardError
     repository.fail!
+  end
+
+  private
+
+  def github_api(user)
+    ApplicationContainer[:octokit].new(user)
   end
 end
