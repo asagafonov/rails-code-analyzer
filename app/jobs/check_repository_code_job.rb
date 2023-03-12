@@ -50,7 +50,7 @@ class CheckRepositoryCodeJob < ApplicationJob
         file_path: error[0][:file_path],
         message: error[0][:message],
         rule: error[0][:rule],
-        location: error[0][:location],
+        location: error[0][:location]
       )
 
       new_error.save!

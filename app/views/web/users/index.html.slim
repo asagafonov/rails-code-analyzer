@@ -1,3 +1,5 @@
 h1 = t('views.welcome_screen')
 
-= link_to t('views.repositories.go_to'), repositories_path, class: 'btn btn-primary mt-4' if current_user
+- if current_user
+  = link_to t('views.repositories.go_to'), repositories_path,
+                                          class: 'btn btn-primary mt-4'

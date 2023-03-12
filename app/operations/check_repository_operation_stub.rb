@@ -13,7 +13,7 @@ class CheckRepositoryOperationStub
         ].sample,
         message: Faker::Lorem.sentence(word_count: 3),
         rule: Faker::Lorem.sentence(word_count: 3),
-        location: "#{[10, 15, 20].sample}:#{[3, 4, 12].sample}",
+        location: "#{[10, 15, 20].sample}:#{[3, 4, 12].sample}"
       )
 
       linter_error.save
