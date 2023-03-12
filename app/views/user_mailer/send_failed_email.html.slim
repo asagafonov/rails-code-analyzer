@@ -2,4 +2,4 @@ p = "#{@user.nickname},"
 p = t('mailer.repository_checks.failed.description')
 p = "#{t('mailer.repository_checks.failed.errors_count')}: #{@check.linter_errors_count}"
 
-= link_to t('mailer.repository_checks.failed.link'), repository_check(@check)
+= link_to t('mailer.repository_checks.failed.link'), repository_check_url(@check)

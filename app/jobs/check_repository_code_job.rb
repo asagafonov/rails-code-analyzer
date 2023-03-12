@@ -19,9 +19,10 @@ class CheckRepositoryCodeJob < ApplicationJob
     else
       write_linter_errors(@repository_check, parsed_result)
       @repository_check.mark_as_failed!
-      UserMailer.with(user: repository.user, check: @repository_check).send_email.deliver_now
+      UserMailer.with(user: repository.user, check: @repository_check).send_failed_email.deliver_now
     end
   rescue StandardError
+    UserMailer.with(user: repository.user, repo: repository).send_error_email.deliver_now
     @repository_check.raise_error!
   end
 

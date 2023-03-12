@@ -48,6 +48,10 @@ ru:
           description: Проверка репозитория не прошла
           errors_count: Количество ошибок
           link: Перейти к проверке
+        error:
+          subject: Проверка не была завершена
+          description: При проведении проверки возникла непредвиденная ошибка
+          link: Перейти к репозиторию
 
   controllers:
     repositories:
