@@ -137,6 +137,7 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailtrap (1.2.0)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -343,6 +344,7 @@ DEPENDENCIES
   html2slim
   jbuilder
   jsbundling-rails
+  mailtrap
   minitest-power_assert
   octokit
   omniauth
