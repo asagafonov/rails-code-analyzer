@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Repository::CheckPolicy < ApplicationPolicy
+class CheckPolicy < ApplicationPolicy
   def show?
     current_user?
   end
