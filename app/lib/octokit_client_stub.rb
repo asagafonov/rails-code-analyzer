@@ -23,6 +23,10 @@ class OctokitClientStub
     }
   end
 
+  def create_hook(_id)
+    ''
+  end
+
   private
 
   def random_name
