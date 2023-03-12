@@ -41,6 +41,13 @@ ru:
           success: Вы вышли из системы
         save_user:
           failure: При определении пользователя произошла ошибка
+    mailers:
+      repository_checks:
+        failed:
+          subject: Проверка завершилась с ошибкой
+          description: Проверка репозитория не прошла
+          errors_count: Количество ошибок
+          link: Перейти к проверке
 
   controllers:
     repositories:
