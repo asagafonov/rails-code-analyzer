@@ -18,10 +18,6 @@ module RailsProject66
 
     routes.default_url_options = { host: ENV['BASE_URL'] }
 
-    config.action_mailer.delivery_method = :mailtrap
-    config.action_mailer.mailtrap_settings = {
-      api_key: ENV.fetch('MAILTRAP_API_KEY')
-    }
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

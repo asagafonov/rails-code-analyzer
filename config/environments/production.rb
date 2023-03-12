@@ -84,6 +84,12 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
+  config.action_mailer.delivery_method = :mailtrap
+
+  config.action_mailer.mailtrap_settings = {
+    api_key: ENV.fetch('MAILTRAP_API_KEY')
+  }
+
   if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
