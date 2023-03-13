@@ -22,5 +22,6 @@ class CheckRepositoryCodeJobStub < ApplicationJob
     end
 
     repository_check.mark_as_failed!
+    repository_check.update(passed: false)
   end
 end
