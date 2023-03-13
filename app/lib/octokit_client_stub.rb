@@ -7,12 +7,12 @@ class OctokitClientStub
 
   def fetch_repositories
     [
-      { full_name: },
-      { full_name: },
-      { full_name: },
-      { full_name: },
-      { full_name: },
-      { full_name: }
+      Repository.new(full_name:),
+      Repository.new(full_name:),
+      Repository.new(full_name:),
+      Repository.new(full_name:),
+      Repository.new(full_name:),
+      Repository.new(full_name:),
     ]
   end
 
