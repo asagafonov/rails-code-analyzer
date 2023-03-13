@@ -100,4 +100,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.secret_key_base = ENV.fetch('SECRET_KEY_BASE', nil)
+
+  routes.default_url_options = { host: ENV['BASE_URL'] }
 end

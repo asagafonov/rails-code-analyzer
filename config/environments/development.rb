@@ -62,6 +62,8 @@ Rails.application.configure do
   config.assets.quiet = true
 
   config.hosts.clear
+
+  routes.default_url_options = { host: ENV['BASE_URL'] }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
