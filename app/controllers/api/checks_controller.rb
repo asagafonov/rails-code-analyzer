@@ -10,8 +10,15 @@ module Api
       repository_check = repository.checks.build
       repository_check.save
 
-      CheckRepositoryCodeJob.perform_later(repository_check.id)
+      check_repository(repository_check.id)
       render json: { status: 200 }
+    end
+
+    private
+
+    def check_repository(check_id)
+      check_repository = ApplicationContainer[:check_repository]
+      check_repository.perform_later(check_id)
     end
   end
 end
