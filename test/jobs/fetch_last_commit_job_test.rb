@@ -2,16 +2,16 @@
 
 require 'test_helper'
 
-class UpdateRepositoryJobTest < ActiveJob::TestCase
+class FetchLastCommitJobTest < ActiveJob::TestCase
   setup do
     @repo = repositories(:react)
   end
 
-  test 'update repository job fires' do
-    UpdateRepositoryJob.perform_later(@repo.id)
+  test 'fetch commit job fires' do
+    FetchLastCommitJob.perform_later(@repo.id)
 
     assert_enqueued_with(
-      job: UpdateRepositoryJob,
+      job: FetchLastCommitJob,
       args: [@repo.id],
       queue: 'default'
     )

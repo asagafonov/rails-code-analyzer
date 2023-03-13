@@ -8,6 +8,7 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     @repo = repositories(:redux)
+    @attrs = { github: 'example/Example' }
   end
 
   test 'should get index' do
@@ -40,6 +41,25 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_out
 
     get repository_path(@repo)
+    assert_redirected_to root_path
+  end
+
+  test 'user should create repository' do
+    post repositories_url, params: { repository: @attrs }
+
+    repo = Repository.find_by(@attrs)
+
+    assert repo
+    assert_redirected_to repository_path(repo)
+  end
+
+  test 'unauthorized user should not create repositories' do
+    sign_out
+
+    post repositories_url, params: { repository: @attrs }
+
+    repo = Repository.find_by(@attrs)
+    assert_not repo
     assert_redirected_to root_path
   end
 end
