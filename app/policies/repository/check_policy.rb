@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CheckPolicy < ApplicationPolicy
+class Repository::CheckPolicy < ApplicationPolicy
   def show?
     current_user?
   end
@@ -12,6 +12,6 @@ class CheckPolicy < ApplicationPolicy
   private
 
   def current_user?
-    record.user_id == user&.id
+    record.repository.user_id == user&.id
   end
 end

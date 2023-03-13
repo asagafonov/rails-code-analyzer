@@ -14,7 +14,7 @@ class RepositoryPolicy < ApplicationPolicy
   end
 
   def create?
-    current_user?
+    user
   end
 
   private
