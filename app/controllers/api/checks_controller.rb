@@ -3,8 +3,8 @@
 module Api
   class ChecksController < ApplicationController
     def run_hook
-      repo_link = params[:repository][:github_id]
-      repository = Repository.find_by(github_id: repo_link)
+      repo_link = params[:repository][:full_name]
+      repository = Repository.find_by(full_name: repo_link)
       return unless repository
 
       repository_check = repository.checks.build
