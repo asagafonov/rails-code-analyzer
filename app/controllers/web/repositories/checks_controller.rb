@@ -5,10 +5,12 @@ module Web
     class ChecksController < ApplicationController
       def show
         @repository_check = Repository::Check.find(params[:id])
+        authorize @repository_check
         @linter_errors = @repository_check.linter_errors
       end
 
       def create
+        authorize Repository::Check
         @repository = Repository.find(params[:repository_id])
         @repository_check = Repository::Check.new(repository_id: @repository.id)
 
@@ -25,7 +27,7 @@ module Web
 
       def check_repository(check_id)
         check_repository = ApplicationContainer[:check_repository]
-        check_repository.run(check_id)
+        check_repository.perform_later(check_id)
       end
     end
   end
