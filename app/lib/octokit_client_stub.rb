@@ -26,7 +26,12 @@ class OctokitClientStub
   def fetch_repository_data(_repository)
     {
       name: repo_name,
-      language: %w[javascript ruby].sample
+      language: %w[javascript ruby].sample,
+      full_name:,
+      default_branch: 'main',
+      clone_url: "https://github.com/#{full_name}.git",
+      repo_created_at: '2021-08-15T00:14:22Z',
+      repo_updated_at: '2021-08-15T00:14:22Z'
     }
   end
 
