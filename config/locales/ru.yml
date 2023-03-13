@@ -24,7 +24,7 @@ ru:
       table:
         status: Статус
         commit_id: ID коммита
-        result: Результат проверки
+        result: Проверка успешна?
         created_at: Дата создания
         amount: Количество замечаний
     linter_errors:

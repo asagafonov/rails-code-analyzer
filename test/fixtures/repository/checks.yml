@@ -4,10 +4,12 @@ one:
   last_commit_sha: ff81abb
   last_commit_url: 'https://github.com/example/Example/commit/asldkfjaff81abb'
   repository: react
-  aasm_state: passed
+  aasm_state: finished
+  passed: true
 
 two:
   last_commit_sha: js3a3m
   last_commit_url: 'https://github.com/example/Example/commit/asldkfjajs3a3m'
   repository: redux
-  aasm_state: failed
+  aasm_state: finished
+  passed: false

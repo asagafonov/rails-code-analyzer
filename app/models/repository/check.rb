@@ -11,23 +11,13 @@ class Repository::Check < ApplicationRecord
     state :idle, initial: true
     state :in_progress
     state :finished
-    state :failed
-    state :raised_error
 
     event :start_checking do
       transitions from: :idle, to: :in_progress
     end
 
-    event :mark_as_passed do
+    event :finish do
       transitions from: :in_progress, to: :finished
-    end
-
-    event :mark_as_failed do
-      transitions from: :in_progress, to: :failed
-    end
-
-    event :raise_error do
-      transitions from: :in_progress, to: :raised_error
     end
   end
 

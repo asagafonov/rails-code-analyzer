@@ -14,18 +14,17 @@ class CheckRepositoryCodeJob < ApplicationJob
     parsed_result = JsonParser.public_send("parse_#{repository.language}", result).reject(&:empty?)
 
     if parsed_result.empty?
-      @repository_check.mark_as_passed!
       @repository_check.update(passed: true)
     else
       write_linter_errors(@repository_check, parsed_result)
-      @repository_check.mark_as_failed!
       @repository_check.update(passed: false)
       UserMailer.with(user: repository.user, check: @repository_check).send_failed_email.deliver_now
     end
+    @repository_check.finish!
   rescue StandardError
     UserMailer.with(user: repository.user, repo: repository).send_error_email.deliver_now
     @repository_check.update(passed: false)
-    @repository_check.raise_error!
+    @repository_check.finish!
   end
 
   private

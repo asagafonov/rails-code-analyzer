@@ -23,7 +23,7 @@ class CheckRepositoryCodeJobStub < ApplicationJob
       linter_error.save
     end
 
-    repository_check.mark_as_failed!
+    repository_check.finish!
     repository_check.update(passed: false)
   end
 end
