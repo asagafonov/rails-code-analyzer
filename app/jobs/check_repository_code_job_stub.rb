@@ -6,6 +6,8 @@ class CheckRepositoryCodeJobStub < ApplicationJob
   def perform(check_id)
     repository_check = Repository::Check.find(check_id)
 
+    repository_check.start_checking!
+
     20.times do
       linter_error = repository_check.linter_errors.build(
         file_path: [
