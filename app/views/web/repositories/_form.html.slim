@@ -1,5 +1,9 @@
 = simple_form_for(repository) do |f|
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  = f.input :full_name, as: :select, collection: @repositories_list.map(&:full_name)
+  - if @repositories_list
+    = f.input :full_name, as: :select, collection: @repositories_list.map(&:full_name)
+  - else
+    p = t('views.repositories.list_unavailable')
+
   = f.submit t('views.repositories.form.submit_new'), class: 'btn btn-primary mt-4'
