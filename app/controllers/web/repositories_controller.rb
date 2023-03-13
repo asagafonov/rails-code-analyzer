@@ -25,8 +25,8 @@ module Web
     end
 
     def create
+      authorize Repository
       @repository = current_user.repositories.build(permitted_params)
-      authorize @repository
 
       if @repository.save
         UpdateRepositoryJob.perform_later(@repository.id)
