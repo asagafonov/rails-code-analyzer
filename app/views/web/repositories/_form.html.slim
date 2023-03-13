@@ -1,5 +1,5 @@
 = simple_form_for(repository) do |f|
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  = f.input :github, as: :select, collection: @repositories_list.map(&:full_name)
+  = f.input :full_name, as: :select, collection: @repositories_list.map(&:full_name)
   = f.submit t('views.repositories.form.submit_new'), class: 'btn btn-primary mt-4'

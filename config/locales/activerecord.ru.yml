@@ -2,7 +2,7 @@ ru:
   activerecord:
     attributes:
       repository:
-        github: Выберите репозиторий из списка
+        full_name: Выберите репозиторий из списка
         name: Название
         language: Язык
         created_at: Дата создания

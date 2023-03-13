@@ -11,7 +11,7 @@ class OctokitClient
   end
 
   def fetch_repositories
-    existing_repos = Repository.all.map(&:github)
+    existing_repos = Repository.all.map(&:full_name)
 
     @client.repos.filter do |repo|
       Repository.language.values.collect(&:text).include?(repo[:language]) && !existing_repos.include?(repo[:full_name])
@@ -19,13 +19,13 @@ class OctokitClient
   end
 
   def fetch_commit_id(check)
-    repo_name = check.repository.github
+    repo_name = check.repository.full_name
     full_commit_id = @client.commits(repo_name).first
     full_commit_id[:sha][..6]
   end
 
   def fetch_repository_data(repository)
-    link = full_link(repository.github)
+    link = full_link(repository.full_name)
 
     github_repo = Octokit::Repository.from_url(link)
 

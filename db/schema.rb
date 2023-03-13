@@ -10,17 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_135015) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "timescaledb"
-
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_063942) do
   create_table "repositories", force: :cascade do |t|
-    t.string "github"
+    t.string "full_name"
     t.string "name"
     t.string "language"
     t.string "state"
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_repositories_on_user_id"
@@ -31,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_135015) do
     t.string "message"
     t.string "rule"
     t.string "location"
-    t.bigint "check_id", null: false
+    t.integer "check_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_id"], name: "index_repository_check_linter_errors_on_check_id"
@@ -40,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_135015) do
   create_table "repository_checks", force: :cascade do |t|
     t.string "commit_id"
     t.string "state"
-    t.bigint "repository_id", null: false
+    t.integer "repository_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "linter_errors_count"

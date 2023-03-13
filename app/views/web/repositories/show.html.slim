@@ -1,5 +1,5 @@
 .mb-4
-  h2 = @repository.github
+  h2 = @repository.full_name
 
 = button_to t('views.repository_checks.add'), repository_checks_path(@repository),
                                               data: { turbo_method: :post, disabled: !@repository&.language },

@@ -6,7 +6,7 @@ class CheckRepositoryCodeJob < ApplicationJob
   def perform(check_id)
     @repository_check = Repository::Check.find_by(id: check_id)
     repository = @repository_check.repository
-    url = git_url(repository.github)
+    url = git_url(repository.full_name)
 
     @repository_check.start_checking!
 
