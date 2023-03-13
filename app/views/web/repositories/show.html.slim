@@ -1,7 +1,7 @@
 .mb-4
   h2 = @repository&.github_id
 
-- if @repository.fetched?
+- if @repository&.language
   = button_to t('views.repository_checks.add'), repository_checks_path(@repository),
                                                 data: { turbo_method: :post, disabled: !@repository&.language },
                                                 class: 'btn btn-primary mb-4'
@@ -42,6 +42,6 @@ table.table.table-striped
         td = link_to (@repository_checks.size - i), repository_check_path(@repository, check),
                                                     class: 'text-primary text-decoration-none'
         td = check.aasm.human_state
-        td = check.commit_id
+        td = link_to check.last_commit_sha, check.last_commit_url if check&.last_commit_url
         td = RepositoryChecksHelper.check_result(check.state)
         td = check.created_at.strftime('%d.%m.%Y, %H:%M')

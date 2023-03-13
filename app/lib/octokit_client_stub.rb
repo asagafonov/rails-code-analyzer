@@ -12,8 +12,11 @@ class OctokitClientStub
     ]
   end
 
-  def fetch_commit_id(_check)
-    Faker::Lorem.characters(number: 6, min_alpha: 4)
+  def fetch_last_commit_data(_check)
+    {
+      last_commit_sha: random_sha[..6],
+      last_commit_url: "https://github.com/example/Example/commit/#{random_sha}"
+    }
   end
 
   def fetch_repository_data(_repository)
@@ -31,6 +34,10 @@ class OctokitClientStub
 
   def random_name
     Faker::Lorem.characters(number: 6, min_alpha: 6)
+  end
+
+  def random_sha
+    Faker::Lorem.characters(number: 12, min_alpha: 6)
   end
 
   def user_name

@@ -16,7 +16,7 @@ table.table
       td = @repository_check&.linter_errors&.size
     tr
       td = t('views.repository_checks.table.commit_id')
-      td = @repository_check&.commit_id
+      td = @repository_check&.last_commit_sha
 
 - if @repository_check.linter_errors_count&.positive?
   table.table.table-hover.mb-5

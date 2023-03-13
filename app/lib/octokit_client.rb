@@ -18,10 +18,14 @@ class OctokitClient
     end
   end
 
-  def fetch_commit_id(check)
+  def fetch_last_commit_data(check)
     repo_name = check.repository.github_id
-    full_commit_id = @client.commits(repo_name).first
-    full_commit_id[:sha][..6]
+    commit_data = @client.commits(repo_name).first
+
+    {
+      last_commit_sha: commit_data[:sha][..6],
+      last_commit_url: commit_data[:html_url]
+    }
   end
 
   def fetch_repository_data(repository)
