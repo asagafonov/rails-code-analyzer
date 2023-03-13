@@ -10,7 +10,7 @@ class Repository::Check < ApplicationRecord
   aasm whiny_transition: false do
     state :idle, initial: true
     state :in_progress
-    state :passed
+    state :finished
     state :failed
     state :raised_error
 
@@ -19,7 +19,7 @@ class Repository::Check < ApplicationRecord
     end
 
     event :mark_as_passed do
-      transitions from: :in_progress, to: :passed
+      transitions from: :in_progress, to: :finished
     end
 
     event :mark_as_failed do

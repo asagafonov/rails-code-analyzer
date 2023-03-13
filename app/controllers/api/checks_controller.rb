@@ -11,7 +11,7 @@ module Api
       repository_check.save
 
       check_repository(repository_check.id)
-      render json: { status: 200 }
+      render json: { '200': 'Ok' }, status: :ok
     end
 
     private
