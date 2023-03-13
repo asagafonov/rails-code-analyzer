@@ -24,10 +24,10 @@ class Repository < ApplicationRecord
     end
 
     event :fail do
-      transitions from: :fetching, to: :failed
+      transitions to: :failed
     end
   end
 
   enumerize :language, in: %i[javascript ruby], scope: true
-  validates :full_name, presence: true, uniqueness: true
+  validates :github_id, presence: true, uniqueness: true
 end

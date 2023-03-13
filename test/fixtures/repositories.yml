@@ -1,13 +1,24 @@
 react:
+  github_id: example/React
   full_name: example/React
   name: ReactJS
   language: javascript
   state: default
   user: chuck
+  repo_created_at: '2021-08-15T00:14:22Z'
+  repo_updated_at: '2021-08-15T00:14:22Z'
+  clone_url: 'https://github/com/example/React.git'
+  default_branch: main
 
 redux:
+  github_id: example/Redux
   full_name: example/Redux
   name: Redux
   language: javascript
   state: fetched
   user: bob
+  repo_created_at: '2021-08-15T00:14:22Z'
+  repo_updated_at: '2021-08-15T00:14:22Z'
+  clone_url: 'https://github/com/example/React.git'
+  default_branch: main
+

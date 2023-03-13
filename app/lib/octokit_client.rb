@@ -19,28 +19,28 @@ class OctokitClient
   end
 
   def fetch_commit_id(check)
-    repo_name = check.repository.full_name
+    repo_name = check.repository.github_id
     full_commit_id = @client.commits(repo_name).first
     full_commit_id[:sha][..6]
   end
 
   def fetch_repository_data(repository)
-    link = full_link(repository.full_name)
+    link = full_link(repository.github_id)
 
     github_repo = Octokit::Repository.from_url(link)
 
     @client.repository(github_repo)
   end
 
-  def create_hook(id)
+  def create_hook(github_id)
     hook_url = Rails.application.routes.url_helpers.api_checks_url
 
-    @client.hooks(id).each do |hook|
-      @client.remove_hook(id, hook[:id]) if hook[:config][:url] == hook_url
+    @client.hooks(github_id).each do |hook|
+      @client.remove_hook(github_id, hook[:id]) if hook[:config][:url] == hook_url
     end
 
     @client.create_hook(
-      id,
+      github_id,
       'web',
       { url: hook_url, content_type: 'json' },
       { events: ['push'], active: true }

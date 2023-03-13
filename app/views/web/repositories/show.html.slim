@@ -1,7 +1,7 @@
 .mb-4
-  h2 = @repository.full_name
+  h2 = @repository&.github_id
 
-- if @repository&.language
+- if @repository.fetched?
   = button_to t('views.repository_checks.add'), repository_checks_path(@repository),
                                                 data: { turbo_method: :post, disabled: !@repository&.language },
                                                 class: 'btn btn-primary mb-4'
@@ -16,13 +16,15 @@ p
   strong.me-2 = "#{t('activerecord.attributes.repository.language')}:"
   = @repository&.language
 
-p
-  strong.me-2 = "#{t('activerecord.attributes.repository.created_at')}:"
-  = @repository&.created_at&.strftime('%d.%m.%Y, %H:%M')
+- if @repository&.repo_created_at
+  p
+    strong.me-2 = "#{t('activerecord.attributes.repository.created_at')}:"
+    = DateTime.parse(@repository.repo_created_at).to_date.strftime('%d.%m.%Y, %H:%M')
 
-p
-  strong.me-2 = "#{t('activerecord.attributes.repository.updated_at')}:"
-  = @repository&.updated_at&.strftime('%d.%m.%Y, %H:%M')
+- if @repository&.repo_updated_at
+  p
+    strong.me-2 = "#{t('activerecord.attributes.repository.updated_at')}:"
+    = DateTime.parse(@repository.repo_updated_at).to_date.strftime('%d.%m.%Y, %H:%M')
 
 hr
 

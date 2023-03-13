@@ -39,7 +39,7 @@ module Web
     private
 
     def permitted_params
-      params.require(:repository).permit(:full_name)
+      params.require(:repository).permit(:github_id)
     end
 
     def github_api(user)

@@ -6,11 +6,10 @@ class CheckRepositoryCodeJob < ApplicationJob
   def perform(check_id)
     @repository_check = Repository::Check.find_by(id: check_id)
     repository = @repository_check.repository
-    url = git_url(repository.full_name)
 
     @repository_check.start_checking!
 
-    git_clone(url)
+    git_clone(repository.clone_url)
     result = Linter.public_send("lint_#{repository.language}", directory)
     parsed_result = JsonParser.public_send("parse_#{repository.language}", result).reject(&:empty?)
 
@@ -38,10 +37,6 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     clone_command = "git clone #{url} #{directory}"
     Terminal.run_command(clone_command)
-  end
-
-  def git_url(url)
-    "https://github.com/#{url}.git"
   end
 
   def write_linter_errors(check, errors)

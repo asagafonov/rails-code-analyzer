@@ -1,8 +1,8 @@
 = simple_form_for(repository) do |f|
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  - if @repositories_list
-    = f.input :full_name, as: :select, collection: @repositories_list.map(&:full_name)
+  - unless @repositories_list.empty?
+    = f.input :github_id, as: :select, collection: @repositories_list.map(&:full_name)
   - else
     p = t('views.repositories.list_unavailable')
 

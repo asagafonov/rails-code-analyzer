@@ -11,11 +11,16 @@ class UpdateRepositoryJob < ApplicationJob
     api = github_api(repository.user)
 
     data = api.fetch_repository_data(repository)
-    api.create_hook(repository[:full_name])
+    api.create_hook(repository.github_id)
 
-    repository.update!(
+    repository.update(
       name: data[:name],
-      language: data[:language].downcase.to_sym
+      full_name: data[:full_name],
+      language: data[:language].downcase.to_sym,
+      default_branch: data[:default_branch],
+      clone_url: data[:clone_url],
+      repo_created_at: data[:created_at],
+      repo_updated_at: data[:updated_at]
     )
 
     repository.succeed!
