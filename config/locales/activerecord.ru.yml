@@ -13,11 +13,11 @@ ru:
         state/failed: Нет, загрузка прервана
 
       repository/check:
-        state/idle: Ожидает проверки
-        state/in_progress: В процессе
-        state/passed: Завершена
-        state/failed: Завершена
-        state/raised_error: Отменена из-за ошибки
+        aasm_state/idle: Ожидает проверки
+        aasm_state/in_progress: В процессе
+        aasm_state/passed: Завершена
+        aasm_state/failed: Завершена
+        aasm_state/raised_error: Отменена из-за ошибки
         passed: Пройдена успешно
         failed: Завершилась с ошибками
         unknown: Неизвестно

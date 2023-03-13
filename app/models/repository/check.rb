@@ -7,7 +7,7 @@ class Repository::Check < ApplicationRecord
   belongs_to :repository
   has_many :linter_errors, dependent: :destroy
 
-  aasm column: :state, whiny_transition: false do
+  aasm whiny_transition: false do
     state :idle, initial: true
     state :in_progress
     state :passed
