@@ -14,7 +14,7 @@ class OctokitClient
     existing_repos = Repository.all.map(&:full_name)
 
     @client.repos.filter do |repo|
-      Repository.language.values.collect(&:text).include?(repo[:language]) && !existing_repos.include?(repo[:full_name])
+      Repository.language.values.collect(&:text).include?(repo[:language]) && existing_repos.exclude?(repo[:full_name])
     end
   end
 
