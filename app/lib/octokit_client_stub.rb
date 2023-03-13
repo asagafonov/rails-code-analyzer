@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class OctokitClientStub
+  def initialize(user)
+    @user = user
+  end
+
   def fetch_repositories
     [
       { full_name: },
