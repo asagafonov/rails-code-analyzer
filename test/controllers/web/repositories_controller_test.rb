@@ -8,7 +8,7 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     @repo = repositories(:redux)
-    @attrs = { github: 'example/Example' }
+    @attrs = { full_name: 'example/Example' }
   end
 
   test 'should get index' do
