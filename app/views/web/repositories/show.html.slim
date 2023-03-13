@@ -1,9 +1,12 @@
 .mb-4
   h2 = @repository.full_name
 
-= button_to t('views.repository_checks.add'), repository_checks_path(@repository),
-                                              data: { turbo_method: :post, disabled: !@repository&.language },
-                                              class: 'btn btn-primary mb-4'
+- if @repository&.language
+  = button_to t('views.repository_checks.add'), repository_checks_path(@repository),
+                                                data: { turbo_method: :post, disabled: !@repository&.language },
+                                                class: 'btn btn-primary mb-4'
+- else
+  p = t('views.repositories.data_unavailable')
 
 p
   strong.me-2 = "#{t('activerecord.attributes.repository.name')}:"
