@@ -1,12 +1,12 @@
 react:
-  github: example/React
+  full_name: example/React
   name: ReactJS
   language: javascript
   state: default
   user: chuck
 
 redux:
-  github: example/Redux
+  full_name: example/Redux
   name: Redux
   language: javascript
   state: fetched
