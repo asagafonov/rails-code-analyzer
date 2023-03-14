@@ -11,12 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_13_112709) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "timescaledb"
+
   create_table "repositories", force: :cascade do |t|
     t.string "full_name"
     t.string "name"
     t.string "language"
     t.string "state"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "github_id"
@@ -32,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_112709) do
     t.string "message"
     t.string "rule"
     t.string "location"
-    t.integer "check_id", null: false
+    t.bigint "check_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_id"], name: "index_repository_check_linter_errors_on_check_id"
@@ -41,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_112709) do
   create_table "repository_checks", force: :cascade do |t|
     t.string "last_commit_sha"
     t.string "aasm_state"
-    t.integer "repository_id", null: false
+    t.bigint "repository_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "linter_errors_count"
