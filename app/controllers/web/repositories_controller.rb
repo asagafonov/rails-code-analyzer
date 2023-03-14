@@ -26,6 +26,11 @@ module Web
 
     def create
       authorize Repository
+
+      if Repository.find_by(github_id: permitted_params[:github_id])
+        redirect_to repositories_path, alert: t('controllers.repositories.create.already_exists') and return
+      end
+
       @repository = current_user.repositories.build(permitted_params)
 
       if @repository.save
