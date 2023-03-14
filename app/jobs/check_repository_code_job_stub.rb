@@ -7,7 +7,7 @@ class CheckRepositoryCodeJobStub < ApplicationJob
     repository_check = Repository::Check.find(check_id)
 
     repository_check.start_checking!
-    repository_check.finish!
+    repository_check.mark_as_finished!
     repository_check.update(passed: true)
   end
 end
