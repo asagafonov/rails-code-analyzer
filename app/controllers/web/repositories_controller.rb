@@ -6,7 +6,7 @@ module Web
   class RepositoriesController < ApplicationController
     def index
       authorize Repository
-      @repositories = current_user&.repositories&.all
+      @repositories = current_user&.repositories&.by_creation_date_desc
     end
 
     def show
@@ -14,14 +14,14 @@ module Web
       authorize @repository
 
       @repository_checks = @repository.checks.by_creation_date_desc
-
-      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def new
       authorize Repository
       @repository = Repository.new
       @repositories_list = github_api(current_user).fetch_repositories
+
+      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def create
@@ -35,6 +35,8 @@ module Web
 
       if @repository.save
         UpdateRepositoryJob.perform_later(@repository.id)
+        github_api(@repository.user).create_hook(@repository.github_id)
+
         redirect_to @repository, notice: t('controllers.repositories.create.success')
       else
         render :new, status: :unprocessable_entity

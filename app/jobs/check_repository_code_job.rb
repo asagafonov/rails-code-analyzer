@@ -9,6 +9,8 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     @repository_check.start_checking!
 
+    FetchLastCommitJob.perform_later(@repository_check.id)
+
     git_clone(repository.clone_url)
     result = Linter.public_send("lint_#{repository.language}", directory)
     parsed_result = JsonParser.public_send("parse_#{repository.language}", result).reject(&:empty?)
@@ -18,10 +20,10 @@ class CheckRepositoryCodeJob < ApplicationJob
     else
       write_linter_errors(@repository_check, parsed_result)
       @repository_check.update(passed: false)
-      UserMailer.with(user: repository.user, check: @repository_check).send_failed_email.deliver_now
+      send_mailer(type: :fail, data: { check: @repository_check })
     end
   rescue StandardError => e
-    UserMailer.with(user: repository.user, repo: repository).send_error_email.deliver_now
+    send_mailer(type: :error, data: { repo: repository })
     @repository_check.update(passed: false)
     pp e
   ensure
@@ -40,6 +42,24 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     clone_command = "git clone #{url} #{directory}"
     Terminal.run_command(clone_command)
+  end
+
+  def send_mailer(type:, data:)
+    case type
+    when :fail
+      UserMailer.with(
+        user: data[:check].repository.user,
+        repo: data[:check].repository,
+        check: data[:check]
+      ).send_failed_email.deliver_now
+    when :error
+      UserMailer.with(
+        user: data[:repo].user,
+        repo: data[:repo]
+      ).send_error_email.deliver_now
+    else
+      puts "No such mailer type as #{type}"
+    end
   end
 
   def write_linter_errors(check, errors)

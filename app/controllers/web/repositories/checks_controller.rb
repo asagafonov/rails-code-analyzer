@@ -15,7 +15,6 @@ module Web
         @repository_check = Repository::Check.new(repository_id: @repository.id)
 
         if @repository_check.save
-          FetchLastCommitJob.perform_later(@repository_check.id)
           check_repository(@repository_check.id)
           redirect_to @repository, notice: t('controllers.repository_checks.create.success')
         else
