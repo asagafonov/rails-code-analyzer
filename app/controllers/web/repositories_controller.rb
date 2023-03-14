@@ -14,14 +14,13 @@ module Web
       authorize @repository
 
       @repository_checks = @repository.checks.by_creation_date_desc
+      UpdateRepositoryJob.perform_later(@repository)
     end
 
     def new
       authorize Repository
       @repository = Repository.new
       @repositories_list = github_api(current_user).fetch_repositories
-
-      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def create
@@ -34,7 +33,7 @@ module Web
       end
 
       if @repository.save
-        UpdateRepositoryJob.perform_later(@repository.id)
+        UpdateRepositoryJob.perform_later(@repository)
         github_api(@repository.user).create_hook(@repository.github_id)
 
         redirect_to @repository, notice: t('controllers.repositories.create.success')
