@@ -28,10 +28,6 @@ module Web
 
       @repository = current_user.repositories.build(permitted_params)
 
-      if Repository.where.not(id: @repository.id).find_by(github_id: permitted_params[:github_id])
-        redirect_to repositories_path, alert: t('controllers.repositories.create.already_exists') and return
-      end
-
       if @repository.save
         UpdateRepositoryJob.perform_later(@repository)
         github_api(@repository.user).create_hook(@repository.github_id)
