@@ -37,15 +37,7 @@ class OctokitClient
   end
 
   def create_hook(github_id)
-    puts '@hook'
     hook_url = Rails.application.routes.url_helpers.api_checks_url
-
-    hook_data = {
-      github_id:,
-      hook_url:
-    }
-
-    pp hook_data
 
     @client.hooks(github_id).each do |hook|
       pp hook if hook
@@ -58,9 +50,6 @@ class OctokitClient
       { url: hook_url, content_type: 'json' },
       { events: ['push'], active: true }
     )
-  rescue StandardError => e
-    puts 'Hook installation failed'
-    pp e
   end
 
   private
