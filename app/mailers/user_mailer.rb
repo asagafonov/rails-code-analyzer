@@ -5,6 +5,7 @@ class UserMailer < ApplicationMailer
 
   def send_failed_email
     @user = params[:user]
+    @repo = params[:repo]
     @check = params[:check]
     mail(to: @user.email, subject: t('mailers.repository_checks.failed.subject'))
   end
