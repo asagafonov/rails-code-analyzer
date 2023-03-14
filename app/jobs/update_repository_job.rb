@@ -5,6 +5,7 @@ class UpdateRepositoryJob < ApplicationJob
 
   def perform(repository_id)
     repository = Repository.find(repository_id)
+    return unless repository
 
     repository.start_fetching!
 
