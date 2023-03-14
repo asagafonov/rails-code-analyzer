@@ -34,7 +34,7 @@ jobs:
       run: make lint
 
     - name: Prepare test db
-      run: rake db:test:prepare
+      run: make prepare-test-env
 
     - name: Run tests
-      run: make start-rake
+      run: make test

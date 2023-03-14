@@ -9,9 +9,9 @@ lint:
 	bundle exec slim-lint ./app/views/
 
 test:
-	rake test
-
-start-rake:
 	bundle exec rake
+
+prepare-test-env:
+	rake db:test:prepare
 
 .PHONY: test
