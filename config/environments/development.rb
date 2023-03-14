@@ -63,7 +63,7 @@ Rails.application.configure do
 
   config.hosts.clear
 
-  routes.default_url_options = { host: ENV.fetch('BASE_URL', nil) }
+  routes.default_url_options = { host: ENV.fetch('BASE_URL', nil), protocol: 'https' }
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
