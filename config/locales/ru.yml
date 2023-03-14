@@ -59,6 +59,7 @@ ru:
     repositories:
       create:
         success: Репозиторий создан
+        already_exists: Репозиторий с таким идентификатором уже существует
     repository_checks:
       create:
         success: Проверка добавлена
