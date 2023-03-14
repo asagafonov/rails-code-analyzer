@@ -24,8 +24,9 @@ class UpdateRepositoryJob < ApplicationJob
     )
 
     repository.succeed!
-  rescue StandardError
+  rescue StandardError => e
     repository.fail!
+    pp e
   end
 
   private
