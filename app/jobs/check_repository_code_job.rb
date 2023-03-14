@@ -20,11 +20,11 @@ class CheckRepositoryCodeJob < ApplicationJob
       @repository_check.update(passed: false)
       UserMailer.with(user: repository.user, check: @repository_check).send_failed_email.deliver_now
     end
-    @repository_check.finish!
   rescue StandardError
     UserMailer.with(user: repository.user, repo: repository).send_error_email.deliver_now
     @repository_check.update(passed: false)
-    @repository_check.finish!
+  ensure
+    @repository_check.mark_as_finished!
   end
 
   private

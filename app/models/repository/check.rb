@@ -16,7 +16,7 @@ class Repository::Check < ApplicationRecord
       transitions from: :idle, to: :in_progress
     end
 
-    event :finish do
+    event :mark_as_finished do
       transitions from: :in_progress, to: :finished
     end
   end
