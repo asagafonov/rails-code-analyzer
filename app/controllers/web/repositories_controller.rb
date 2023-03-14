@@ -30,11 +30,11 @@ module Web
 
       if @repository.save
         UpdateRepositoryJob.perform_later(@repository)
-        github_api(@repository.user).create_hook(@repository.github_id)
+        SetupRepoHookJob.perform_later(@repository)
 
         redirect_to @repository, notice: t('controllers.repositories.create.success')
       else
-        render :new, status: :unprocessable_entity
+        redirect_to new_repository_path, alert: t('controllers.repositories.create.failure')
       end
     end
 
