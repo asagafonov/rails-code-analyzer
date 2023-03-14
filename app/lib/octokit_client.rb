@@ -30,8 +30,6 @@ class OctokitClient
 
   def fetch_repository_data(repository)
     link = full_link(repository.github_id)
-    puts '@link'
-    pp link
 
     github_repo = Octokit::Repository.from_url(link)
 
@@ -39,19 +37,20 @@ class OctokitClient
   end
 
   def create_hook(github_id)
+    puts '@hook'
     hook_url = Rails.application.routes.url_helpers.api_checks_url
 
-    @client.hooks(github_id).each do |hook|
-      @client.remove_hook(github_id, hook[:id]) if hook[:config][:url] == hook_url
-    end
-
-    puts '@hook_data'
     hook_data = {
       github_id:,
-      hook_url:,
+      hook_url:
     }
 
     pp hook_data
+
+    @client.hooks(github_id).each do |hook|
+      pp hook if hook
+      @client.remove_hook(github_id, hook[:id]) if hook[:config][:url] == hook_url
+    end
 
     @client.create_hook(
       github_id,
@@ -59,6 +58,9 @@ class OctokitClient
       { url: hook_url, content_type: 'json' },
       { events: ['push'], active: true }
     )
+  rescue StandardError => e
+    puts 'Hook installation failed'
+    pp e
   end
 
   private
