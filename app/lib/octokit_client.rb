@@ -30,6 +30,8 @@ class OctokitClient
 
   def fetch_repository_data(repository)
     link = full_link(repository.github_id)
+    puts '@link'
+    pp link
 
     github_repo = Octokit::Repository.from_url(link)
 
@@ -42,6 +44,14 @@ class OctokitClient
     @client.hooks(github_id).each do |hook|
       @client.remove_hook(github_id, hook[:id]) if hook[:config][:url] == hook_url
     end
+
+    puts '@hook_data'
+    hook_data = {
+      github_id:,
+      hook_url:,
+    }
+
+    pp hook_data
 
     @client.create_hook(
       github_id,
