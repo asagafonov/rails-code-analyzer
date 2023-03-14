@@ -60,6 +60,7 @@ ru:
     repositories:
       create:
         success: Репозиторий создан
+        failure: При создании репозитория произошла ошибка
         already_exists: Репозиторий с таким идентификатором уже существует
     repository_checks:
       create:
