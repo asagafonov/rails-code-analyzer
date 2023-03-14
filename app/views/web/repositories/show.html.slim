@@ -19,12 +19,12 @@ p
 - if @repository&.repo_created_at
   p
     strong.me-2 = "#{t('activerecord.attributes.repository.created_at')}:"
-    = DateTime.parse(@repository.repo_created_at).to_date.strftime('%d.%m.%Y, %H:%M')
+    = DateTime.parse(@repository.repo_created_at).to_date.strftime('%d.%m.%Y')
 
 - if @repository&.repo_updated_at
   p
     strong.me-2 = "#{t('activerecord.attributes.repository.updated_at')}:"
-    = DateTime.parse(@repository.repo_updated_at).to_date.strftime('%d.%m.%Y, %H:%M')
+    = DateTime.parse(@repository.repo_updated_at).to_date.strftime('%d.%m.%Y')
 
 hr
 
