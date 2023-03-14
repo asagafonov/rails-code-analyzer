@@ -8,11 +8,11 @@ class UpdateRepositoryJobTest < ActiveJob::TestCase
   end
 
   test 'update repository job fires' do
-    UpdateRepositoryJob.perform_later(@repo.id)
+    UpdateRepositoryJob.perform_later(@repo)
 
     assert_enqueued_with(
       job: UpdateRepositoryJob,
-      args: [@repo.id],
+      args: [@repo],
       queue: 'default'
     )
   end
