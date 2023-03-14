@@ -28,7 +28,7 @@ table.table
     tbody
       - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
         tr
-          td(colspan="3") = link_to path.split('/').last, path
+          td(colspan="3") = link_to path.split('/').last(2).join('/'), path
         - details.each do |d|
           tr
             td = d[:message]
