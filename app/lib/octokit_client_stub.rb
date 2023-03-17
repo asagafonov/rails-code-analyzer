@@ -28,8 +28,8 @@ class OctokitClientStub
       full_name:,
       default_branch: 'main',
       clone_url: "https://github.com/#{full_name}.git",
-      repo_created_at: '2021-08-15T00:14:22Z',
-      repo_updated_at: '2021-08-15T00:14:22Z'
+      created_at: '2021-08-15T00:14:22Z',
+      updated_at: '2021-08-15T00:14:22Z'
     }
   end
 
