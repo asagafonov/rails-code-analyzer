@@ -4,12 +4,15 @@ class CheckRepositoryCodeJob < ApplicationJob
   queue_as :default
 
   def perform(check_id)
-    @repository_check = Repository::Check.find_by(id: check_id)
-    repository = @repository_check.repository
+    @repository_check = Repository::Check.find(check_id)
+    return unless @repository_check
 
     @repository_check.start_checking!
 
     FetchLastCommitJob.perform_later(@repository_check.id)
+
+    repository = @repository_check.repository
+    directory = directory_path(repository.github_id)
 
     git_clone(repository.clone_url)
     result = Linter.public_send("lint_#{repository.language}", directory)
@@ -32,8 +35,8 @@ class CheckRepositoryCodeJob < ApplicationJob
 
   private
 
-  def directory
-    Rails.root.join('./tmp/repository_check')
+  def directory_path(github_id)
+    Rails.root.join("./tmp/repository_checks/#{github_id}/")
   end
 
   def git_clone(url)
