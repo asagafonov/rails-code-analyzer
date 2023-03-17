@@ -3,7 +3,10 @@
 class UpdateRepositoryJob < ApplicationJob
   queue_as :default
 
-  def perform(repository)
+  def perform(repository_id)
+    repository = Repository.find(repository_id)
+    return unless repository.may_start_fetching?
+
     repository.start_fetching!
 
     data = github_api(repository.user).fetch_repository_data(repository.github_id)
