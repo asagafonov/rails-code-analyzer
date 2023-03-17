@@ -4,7 +4,7 @@ class FetchLastCommitJob < ApplicationJob
   queue_as :default
 
   def perform(check_id)
-    check = Repository::Check.find(check_id)
+    check = Repository::Check.find_by(id: check_id)
     return unless check
 
     commit_data = github_api(check.repository.user).fetch_last_commit_data(check)

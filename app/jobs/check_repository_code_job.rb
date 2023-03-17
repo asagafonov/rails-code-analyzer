@@ -4,7 +4,7 @@ class CheckRepositoryCodeJob < ApplicationJob
   queue_as :default
 
   def perform(check_id)
-    @repository_check = Repository::Check.find(check_id)
+    @repository_check = Repository::Check.find_by(id: check_id)
     return unless @repository_check
 
     @repository_check.start_checking!
@@ -23,11 +23,11 @@ class CheckRepositoryCodeJob < ApplicationJob
     else
       write_linter_errors(@repository_check, parsed_result)
       @repository_check.update(passed: false)
-      send_mailer(type: :fail, data: { check: @repository_check })
+      UserMailer.with(check: @repository_check).send_failed_email.deliver_later
     end
     @repository_check.mark_as_finished!
   rescue StandardError => e
-    send_mailer(type: :error, data: { repo: repository })
+    UserMailer.with(repo: repository).send_error_email.deliver_later
     @repository_check.update(passed: false)
     @repository_check.mark_as_failed!
     logger.error "Error in check repository job: #{e}"
@@ -45,24 +45,6 @@ class CheckRepositoryCodeJob < ApplicationJob
 
     clone_command = "git clone #{url} #{directory}"
     Terminal.run_command(clone_command)
-  end
-
-  def send_mailer(type:, data:)
-    case type
-    when :fail
-      UserMailer.with(
-        user: data[:check].repository.user,
-        repo: data[:check].repository,
-        check: data[:check]
-      ).send_failed_email.deliver_now
-    when :error
-      UserMailer.with(
-        user: data[:repo].user,
-        repo: data[:repo]
-      ).send_error_email.deliver_now
-    else
-      puts "No such mailer type as #{type}"
-    end
   end
 
   def write_linter_errors(check, errors)
