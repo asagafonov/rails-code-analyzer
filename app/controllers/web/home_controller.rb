@@ -2,8 +2,6 @@
 
 module Web
   class HomeController < ApplicationController
-    def index
-      @repositories = current_user&.repositories&.all
-    end
+    def index; end
   end
 end
