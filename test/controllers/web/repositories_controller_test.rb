@@ -55,6 +55,7 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     repo = Repository.find_by(@attrs)
 
     assert repo
+    assert { repo.fetched? }
     assert { repo.name }
     assert { repo.language }
     assert { repo.full_name }
