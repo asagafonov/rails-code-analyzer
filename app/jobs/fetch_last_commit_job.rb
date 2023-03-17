@@ -7,7 +7,10 @@ class FetchLastCommitJob < ApplicationJob
     check = Repository::Check.find_by(id: check_id)
     return unless check
 
-    commit_data = github_api(check.repository.user).fetch_last_commit_data(check)
+    user = check.repository.user
+    github_id = check.repository.github_id
+
+    commit_data = github_api(user).fetch_last_commit_data(github_id)
 
     check.update(
       last_commit_sha: commit_data[:last_commit_sha],

@@ -14,7 +14,7 @@ class CheckRepositoryCodeJob < ApplicationJob
     repository = @repository_check.repository
     directory = directory_path(repository.github_id)
 
-    git_clone(repository.clone_url)
+    git_clone(repository.clone_url, directory)
     result = Linter.public_send("lint_#{repository.language}", directory)
     parsed_result = JsonParser.public_send("parse_#{repository.language}", result).reject(&:empty?)
 
@@ -39,11 +39,11 @@ class CheckRepositoryCodeJob < ApplicationJob
     Rails.root.join("./tmp/repository_checks/#{github_id}/")
   end
 
-  def git_clone(url)
-    clear_dir_command = "rm -rf #{directory}"
+  def git_clone(url, dir)
+    clear_dir_command = "rm -rf #{dir}"
     terminal.run_command(clear_dir_command)
 
-    clone_command = "git clone #{url} #{directory}"
+    clone_command = "git clone #{url} #{dir}"
     terminal.run_command(clone_command)
   end
 

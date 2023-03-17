@@ -4,8 +4,8 @@ class UpdateRepositoryJob < ApplicationJob
   queue_as :default
 
   def perform(repository_id)
-    repository = Repository.find(repository_id)
-    return unless repository.may_start_fetching?
+    repository = Repository.find_by(id: repository_id)
+    return unless repository&.may_start_fetching?
 
     repository.start_fetching!
 
@@ -23,7 +23,7 @@ class UpdateRepositoryJob < ApplicationJob
 
     repository.succeed!
   rescue StandardError => e
-    repository.fail!
+    repository&.fail!
     logger.error("Error in update repository job: #{e}")
   end
 
