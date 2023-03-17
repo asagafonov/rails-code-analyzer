@@ -12,7 +12,7 @@ module Web
       def create
         authorize Repository::Check
         @repository = Repository.find(params[:repository_id])
-        @repository_check = Repository::Check.new(repository_id: @repository.id)
+        @repository_check = @repository.checks.build
 
         if @repository_check.save
           check_repository(@repository_check.id)
