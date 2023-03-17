@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   namespace :api do
-    post 'checks', to: 'checks#run_hook'
+    resources :checks, only: :create
   end
 
   scope module: :web do
