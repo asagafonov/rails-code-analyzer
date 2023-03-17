@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class OctokitClientStub
-  def initialize(user)
-    @user = user
-  end
+  def initialize(*); end
 
   def fetch_repositories
     [
@@ -23,7 +21,7 @@ class OctokitClientStub
     }
   end
 
-  def fetch_repository_data(_repository)
+  def fetch_repository_data(_github_id)
     {
       name: repo_name,
       language: %w[javascript ruby].sample,
