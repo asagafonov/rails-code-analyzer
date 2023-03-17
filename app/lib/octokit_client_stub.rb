@@ -14,7 +14,7 @@ class OctokitClientStub
     ]
   end
 
-  def fetch_last_commit_data(_check)
+  def fetch_last_commit_data(_github_id)
     {
       last_commit_sha: random_sha[..6],
       last_commit_url: "https://github.com/example/Example/commit/#{random_sha}"
