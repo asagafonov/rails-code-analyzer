@@ -14,7 +14,7 @@ module Web
       authorize @repository
 
       @repository_checks = @repository.checks.by_creation_date_desc
-      UpdateRepositoryJob.perform_later(@repository)
+      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def new
