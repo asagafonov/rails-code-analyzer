@@ -6,7 +6,7 @@ module Web
   class RepositoriesController < ApplicationController
     def index
       authorize Repository
-      @repositories = current_user&.repositories&.by_creation_date_desc
+      @repositories = current_user.repositories.by_creation_date_desc
     end
 
     def show
