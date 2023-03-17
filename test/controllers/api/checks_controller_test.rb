@@ -3,9 +3,13 @@
 require 'test_helper'
 
 class Api::ChecksControllerTest < ActionDispatch::IntegrationTest
-  test 'should return 200' do
-    post api_checks_path, params: { repository: { github_id: 'example/Example' } }
+  setup do
+    @repo = repositories(:redux)
+  end
 
-    assert_response :success
+  test 'should return 200' do
+    post api_checks_path, params: { repository: { full_name: @repo[:full_name] } }
+
+    assert_response :ok
   end
 end
