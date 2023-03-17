@@ -6,8 +6,7 @@ class SetupRepoHookJob < ApplicationJob
   def perform(repo)
     github_api(repo.user).create_hook(repo.github_id)
   rescue StandardError => e
-    puts 'Error creating repository hook'
-    pp e
+    logger.error "Error creating repository hook: #{e}"
   end
 
   private

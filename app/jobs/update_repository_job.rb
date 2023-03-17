@@ -24,7 +24,7 @@ class UpdateRepositoryJob < ApplicationJob
     repository.succeed!
   rescue StandardError => e
     repository.fail!
-    pp e
+    logger.error("Error in update repository job: #{e}")
   end
 
   private
