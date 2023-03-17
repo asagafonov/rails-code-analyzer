@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Web
-  class UsersController < ApplicationController
+  class HomeController < ApplicationController
     def index
       @repositories = current_user&.repositories&.all
     end

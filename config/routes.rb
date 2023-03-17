@@ -16,6 +16,6 @@ Rails.application.routes.draw do
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     get 'auth/logout', to: 'auth#end_session'
 
-    root 'users#index'
+    root 'home#index'
   end
 end
