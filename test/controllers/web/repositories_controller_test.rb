@@ -8,7 +8,6 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     @repo = repositories(:redux)
-    @empty_repo = repositories(:empty)
     @attrs = { github_id: 'example/Example' }
   end
 
