@@ -38,5 +38,10 @@ module Web
         token: data[:credentials][:token]
       }
     end
+
+    def update_user_data(user, data)
+      user.nickname = data[:nickname]
+      user.token = data[:token]
+    end
   end
 end

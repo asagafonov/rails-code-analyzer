@@ -24,6 +24,11 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
+  test 'user should get new' do
+    get new_repository_path
+    assert_response :success
+  end
+
   test 'unauthorized user should not get new' do
     sign_out
 
@@ -44,12 +49,19 @@ class Web::RepositoriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test 'user should create repository' do
+  test 'user should create repository, it should get updated' do
     post repositories_url, params: { repository: @attrs }
 
     repo = Repository.find_by(@attrs)
 
     assert repo
+    assert { repo.fetched? }
+    assert { repo.name }
+    assert { repo.language }
+    assert { repo.full_name }
+    assert { repo.clone_url }
+    assert { repo.repo_created_at }
+    assert { repo.repo_updated_at }
     assert_redirected_to repository_path(repo)
   end
 

@@ -2,7 +2,7 @@
 
 class Repository::CheckPolicy < ApplicationPolicy
   def show?
-    current_user?
+    belongs_to_user?
   end
 
   def create?
@@ -11,7 +11,7 @@ class Repository::CheckPolicy < ApplicationPolicy
 
   private
 
-  def current_user?
+  def belongs_to_user?
     record.repository.user_id == user&.id
   end
 end

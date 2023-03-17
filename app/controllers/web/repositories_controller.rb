@@ -6,7 +6,7 @@ module Web
   class RepositoriesController < ApplicationController
     def index
       authorize Repository
-      @repositories = current_user&.repositories&.by_creation_date_desc
+      @repositories = current_user.repositories.by_creation_date_desc
     end
 
     def show
@@ -14,7 +14,7 @@ module Web
       authorize @repository
 
       @repository_checks = @repository.checks.by_creation_date_desc
-      UpdateRepositoryJob.perform_later(@repository)
+      UpdateRepositoryJob.perform_later(@repository.id)
     end
 
     def new

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class OctokitClientStub
-  def initialize(user)
-    @user = user
-  end
+  def initialize(*); end
 
   def fetch_repositories
     [
@@ -16,22 +14,22 @@ class OctokitClientStub
     ]
   end
 
-  def fetch_last_commit_data(_check)
+  def fetch_last_commit_data(_github_id)
     {
       last_commit_sha: random_sha[..6],
       last_commit_url: "https://github.com/example/Example/commit/#{random_sha}"
     }
   end
 
-  def fetch_repository_data(_repository)
+  def fetch_repository_data(_github_id)
     {
       name: repo_name,
       language: %w[javascript ruby].sample,
       full_name:,
       default_branch: 'main',
       clone_url: "https://github.com/#{full_name}.git",
-      repo_created_at: '2021-08-15T00:14:22Z',
-      repo_updated_at: '2021-08-15T00:14:22Z'
+      created_at: '2021-08-15T00:14:22Z',
+      updated_at: '2021-08-15T00:14:22Z'
     }
   end
 

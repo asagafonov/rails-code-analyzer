@@ -3,10 +3,13 @@
 class UpdateRepositoryJob < ApplicationJob
   queue_as :default
 
-  def perform(repository)
+  def perform(repository_id)
+    repository = Repository.find_by(id: repository_id)
+    return unless repository&.may_start_fetching?
+
     repository.start_fetching!
 
-    data = github_api(repository.user).fetch_repository_data(repository)
+    data = github_api(repository.user).fetch_repository_data(repository.github_id)
 
     repository.update(
       name: data[:name],
@@ -21,7 +24,7 @@ class UpdateRepositoryJob < ApplicationJob
     repository.succeed!
   rescue StandardError => e
     repository.fail!
-    pp e
+    logger.error("Error in update repository job: #{e}")
   end
 
   private

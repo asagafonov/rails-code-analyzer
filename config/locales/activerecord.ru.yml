@@ -16,3 +16,4 @@ ru:
         aasm_state/idle: Ожидает проверки
         aasm_state/in_progress: В процессе
         aasm_state/finished: Завершена
+        aasm_state/failed: Завершилась с ошибкой

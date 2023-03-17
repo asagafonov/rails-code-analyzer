@@ -12,9 +12,4 @@ module AuthConcern
   def sign_out
     session.clear
   end
-
-  def update_user_data(user, data)
-    user.nickname = data[:nickname]
-    user.token = data[:token]
-  end
 end

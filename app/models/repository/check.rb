@@ -11,6 +11,7 @@ class Repository::Check < ApplicationRecord
     state :idle, initial: true
     state :in_progress
     state :finished
+    state :failed
 
     event :start_checking do
       transitions from: :idle, to: :in_progress
@@ -18,6 +19,10 @@ class Repository::Check < ApplicationRecord
 
     event :mark_as_finished do
       transitions from: :in_progress, to: :finished
+    end
+
+    event :mark_as_failed do
+      transitions to: :failed
     end
   end
 

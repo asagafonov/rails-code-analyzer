@@ -30,7 +30,7 @@ Style/FetchEnvVar:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 20
+  Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
