@@ -25,12 +25,12 @@ class CheckRepositoryCodeJob < ApplicationJob
       @repository_check.update(passed: false)
       send_mailer(type: :fail, data: { check: @repository_check })
     end
+    @repository_check.mark_as_finished!
   rescue StandardError => e
     send_mailer(type: :error, data: { repo: repository })
     @repository_check.update(passed: false)
+    @repository_check.mark_as_failed!
     logger.error "Error in check repository job: #{e}"
-  ensure
-    @repository_check.mark_as_finished!
   end
 
   private
