@@ -41,10 +41,10 @@ class CheckRepositoryCodeJob < ApplicationJob
 
   def git_clone(url)
     clear_dir_command = "rm -rf #{directory}"
-    Terminal.run_command(clear_dir_command)
+    terminal.run_command(clear_dir_command)
 
     clone_command = "git clone #{url} #{directory}"
-    Terminal.run_command(clone_command)
+    terminal.run_command(clone_command)
   end
 
   def write_linter_errors(check, errors)
@@ -58,5 +58,9 @@ class CheckRepositoryCodeJob < ApplicationJob
 
       new_error.save!
     end
+  end
+
+  def terminal
+    ApplicationContainer[:terminal]
   end
 end
