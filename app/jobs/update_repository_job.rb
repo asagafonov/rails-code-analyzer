@@ -6,7 +6,7 @@ class UpdateRepositoryJob < ApplicationJob
   def perform(repository)
     repository.start_fetching!
 
-    data = github_api(repository.user).fetch_repository_data(repository)
+    data = github_api(repository.user).fetch_repository_data(repository.github_id)
 
     repository.update(
       name: data[:name],
