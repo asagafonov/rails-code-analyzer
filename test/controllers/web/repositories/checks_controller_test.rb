@@ -25,22 +25,25 @@ class Web::Repositories::ChecksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'user should create check' do
-    prev_check = @repo.checks.last
+    prev_last_check = @repo.checks.last
     post repository_checks_url(@repo)
 
-    new_check = @repo.checks.last
-    assert { prev_check&.id != new_check&.id }
+    last_check = @repo.checks.last
+    assert { prev_last_check.id != last_check.id }
+    assert { last_check.finished? }
+    assert { last_check.passed }
     assert_redirected_to @repo
   end
 
   test 'unauthorized user should not create check' do
     sign_out
 
-    prev_check = @repo.checks.last
+    prev_last_check = @repo.checks.last
     post repository_checks_url(@repo)
 
-    new_check = @repo.checks.last
-    assert { prev_check&.id == new_check&.id }
+    last_check = @repo.checks.last
+
+    assert { prev_last_check.id == last_check.id }
     assert_redirected_to root_path
   end
 end
