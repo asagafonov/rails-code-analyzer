@@ -36,7 +36,6 @@ class OctokitClient
     hook_url = Rails.application.routes.url_helpers.api_checks_url
 
     @client.hooks(github_id).each do |hook|
-      pp hook if hook
       @client.remove_hook(github_id, hook[:id]) if hook[:config][:url] == hook_url
     end
 
