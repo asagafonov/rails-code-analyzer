@@ -6,7 +6,7 @@ class RepositoryPolicy < ApplicationPolicy
   end
 
   def show?
-    current_user?
+    belongs_to_user?
   end
 
   def new?
@@ -19,7 +19,7 @@ class RepositoryPolicy < ApplicationPolicy
 
   private
 
-  def current_user?
+  def belongs_to_user?
     record.user_id == user&.id
   end
 end
