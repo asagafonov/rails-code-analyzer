@@ -4,6 +4,7 @@ require 'octokit'
 
 class OctokitClient
   def initialize(user)
+    @user = user
     @client = Octokit::Client.new(
       access_token: user.token,
       auto_paginate: true
@@ -11,16 +12,15 @@ class OctokitClient
   end
 
   def fetch_repositories
-    existing_repos = Repository.all.map(&:full_name)
+    existing_repos = @user.repositories.map(&:full_name)
 
     @client.repos.filter do |repo|
       Repository.language.values.collect(&:text).include?(repo[:language]) && existing_repos.exclude?(repo[:full_name])
     end
   end
 
-  def fetch_last_commit_data(check)
-    repo_name = check.repository.github_id
-    commit_data = @client.commits(repo_name).first
+  def fetch_last_commit_data(github_id)
+    commit_data = @client.commits(github_id).first
 
     {
       last_commit_sha: commit_data[:sha][..6],
@@ -28,12 +28,8 @@ class OctokitClient
     }
   end
 
-  def fetch_repository_data(repository)
-    link = full_link(repository.github_id)
-
-    github_repo = Octokit::Repository.from_url(link)
-
-    @client.repository(github_repo)
+  def fetch_repository_data(github_id)
+    @client.repository(github_id)
   end
 
   def create_hook(github_id)
@@ -50,11 +46,5 @@ class OctokitClient
       { url: hook_url, content_type: 'json' },
       { events: ['push'], active: true }
     )
-  end
-
-  private
-
-  def full_link(url)
-    "https://github.com/#{url}"
   end
 end
