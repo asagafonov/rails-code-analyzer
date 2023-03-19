@@ -13,9 +13,9 @@ class JsonParser
   def self.parse_ruby(data)
     return [] if data.empty?
 
-    JSON.parse(data)['files'].filter { |d| d.offences.any? }.map do |check_data|
+    JSON.parse(data)['files'].filter { |d| d['offenses'].any? }.map do |check_data|
       file_path = check_data['path']
-      format_ruby_errors(check_data['offences'], file_path)
+      format_ruby_errors(check_data['offenses'], file_path)
     end
   end
 
