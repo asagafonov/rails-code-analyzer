@@ -11,4 +11,8 @@ module RepositoryChecksHelper
       acc[path] << { rule: err&.rule, message: err&.message, location: err&.location }
     end
   end
+
+  def self.github_path(repo, path)
+    "https://github.com/#{repo&.full_name}/blob/#{repo&.default_branch}/#{path.split('/')[4..].join('/')}"
+  end
 end

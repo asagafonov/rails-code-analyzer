@@ -28,7 +28,8 @@ table.table
     tbody
       - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
         tr
-          td(colspan="3") = link_to path.split('/').last(2).join('/'), path
+          td(colspan="3") = link_to path.split('/').last(2).join('/').truncate(80),
+                                    RepositoryChecksHelper.github_path(@repository_check.repository, path)
         - details.each do |d|
           tr
             td = d[:message]
