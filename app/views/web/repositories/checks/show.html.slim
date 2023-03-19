@@ -26,10 +26,10 @@ table.table
         th = t('views.linter_errors.table.rule')
         th = t('views.linter_errors.table.line')
     tbody
-      - RepositoryChecksHelper.group_errors_by_path(@linter_errors).each do |path, details|
+      - group_errors_by_path(@linter_errors).each do |path, details|
         tr
           td(colspan="3") = link_to path.split('/').last(2).join('/').truncate(80),
-                                    RepositoryChecksHelper.github_path(@repository_check.repository, path)
+                                    github_link(@repository_check.repository, path)
         - details.each do |d|
           tr
             td = d[:message]

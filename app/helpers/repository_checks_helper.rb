@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RepositoryChecksHelper
-  def self.group_errors_by_path(errors)
+  def group_errors_by_path(errors)
     return {} if errors.empty?
 
     errors.each_with_object({}) do |err, acc|
@@ -12,7 +12,8 @@ module RepositoryChecksHelper
     end
   end
 
-  def self.github_path(repo, path)
-    "https://github.com/#{repo&.full_name}/blob/#{repo&.default_branch}/#{path.split('/')[4..].join('/')}"
+  def github_link(repo, path)
+    _, slug = path.split("tmp/repository_checks/#{repo&.full_name}/")
+    "https://github.com/#{repo&.full_name}/blob/#{repo&.default_branch}/#{slug}"
   end
 end
