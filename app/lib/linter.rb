@@ -8,7 +8,7 @@ class Linter
   end
 
   def self.lint_ruby(dir)
-    config_path = Rails.root.join('config/.rubocop.yml')
+    config_path = Rails.root.join('.rubocop.yml')
     command = "rubocop --format json --config #{config_path} #{dir}"
     terminal.run_command(command)
   end
