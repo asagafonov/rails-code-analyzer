@@ -11,7 +11,7 @@ module Api
       repository_check.save
 
       CheckRepositoryCodeJob.perform_later(repository_check.id)
-      render json: { '200': 'Ok' }, status: :ok
+      render json: { status: :ok }
     end
   end
 end
