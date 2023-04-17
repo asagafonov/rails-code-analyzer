@@ -2,11 +2,6 @@
 
 [![linter & tests](https://github.com/asagafonov/rails-project-66/actions/workflows/linter-and-tests.yml/badge.svg)](https://github.com/asagafonov/rails-project-66/actions/workflows/linter-and-tests.yml)
 
-
-### [Deployment link](https://rails-code-analyzer.up.railway.app)
-
-> Deployment might be down if Railway hours expire by the end of the month. Feel free to set up project locally, instructions below.
-
 ### Project description
 
 The app allows you to add GitHub repositories and perform linter checks on them (currently available for JavaScript and Ruby).
